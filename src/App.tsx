@@ -1,7 +1,5 @@
-import { Box, Card, CardContent, CardMedia, Container, Grid, IconButton, Typography } from "@mui/material";
-import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import SkipNextIcon from "@mui/icons-material/SkipNext";
+import { Box, CardMedia, Container, IconButton, Paper, Typography } from "@mui/material";
+
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 const MenuData = [
   {
@@ -56,31 +54,43 @@ const MenuData = [
 
 function DishCard({ dayOfWeek, imageUrl, proposerName, dishName }) {
   return (
-    <Card sx={{ display: "flex", my: "4px" }}>
-      <Grid container>
-        <Grid item xs={7} sx={{ display: "flex", flexDirection: "column" }}>
-          <CardContent sx={{ flex: "1 0 auto" }}>
-            <Typography component="div" variant="h6">
-              {dayOfWeek}
-            </Typography>
-            <Typography component="div" variant="subtitle1">
-              {dishName}
-            </Typography>
-            <Typography variant="subtitle2" color="text.secondary" component="div">
-              {proposerName}
-            </Typography>
-          </CardContent>
-        </Grid>
-        <Grid item xs={5} alignItems="center" display="flex" justifyContent="center" px={1}>
-          <CardMedia component="img" image={imageUrl} alt={dishName} />
-        </Grid>
-      </Grid>
-    </Card>
+    <Box sx={{ my: "4px", display: "flex", alignItems: "center", position: "relative" }}>
+      <CardMedia
+        component="img"
+        image={imageUrl}
+        alt={dishName}
+        sx={{
+          borderRadius: "50%",
+          width: "40%",
+          height: "40%",
+          aspectRatio: 1 / 1,
+          zIndex: 1,
+          boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px;",
+        }}
+      />
+      <Box
+        sx={{
+          zIndex: 1,
+          pl: 1,
+        }}
+      >
+        <Typography component="div" variant="h6">
+          {dishName}
+        </Typography>
+        <Typography variant="subtitle2" color="text.secondary" component="div">
+          {dayOfWeek} - {proposerName}
+        </Typography>
+      </Box>
+      <Paper
+        elevation={6}
+        sx={{ left: "20%", width: "80%", height: "75%", position: "absolute", zIndex: 0, backgroundColor: "#F6F4EB" }}
+      />
+    </Box>
   );
 }
 function App() {
   return (
-    <Container component="main" sx={{ bgcolor: "#aaa" }}>
+    <Container component="main" sx={{ bgcolor: "#91C8E4" }}>
       <Box display="flex" justifyContent="center" py="5px">
         <Typography variant="h4">Menu Semanal</Typography>
       </Box>
