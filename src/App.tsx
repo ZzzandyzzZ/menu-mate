@@ -1,58 +1,63 @@
 import { Box, CardMedia, Container, IconButton, Paper, Typography } from "@mui/material";
-
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+
+import capitalizeFirstLetter from "./lib/capitalizeFirstLetter";
+
 const MenuData = [
   {
-    dishName: "Churrasco",
-    dayOfWeek: "Lunes",
-    proposerName: "Andy",
+    dishName: "CHURRASCO",
+    dayOfWeek: DaysOfWeek.lunes,
+    proposerName: ProposerNames.andy,
     imageUrl: "https://tropicalcomidarapida.com/wp-content/uploads/resized_CHURRASCO-1-1.jpg",
   },
   {
     dishName: "Sushi",
-    dayOfWeek: "Martes",
-    proposerName: "Andy",
+    dayOfWeek: DaysOfWeek.martes,
+    proposerName: ProposerNames.andy,
     imageUrl:
       "https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/0749D9BC-260D-40F4-A07F-54814C4A82B4/Derivates/A73A7793-F3EE-4B90-ABA4-1CC1A0C3E18F.jpg",
   },
   {
     dishName: "Hamburguesa",
-    dayOfWeek: "Miércoles",
-    proposerName: "Franzua",
+    dayOfWeek: DaysOfWeek.miercoles,
+    proposerName: ProposerNames.franzua,
     imageUrl:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/NCI_Visuals_Food_Hamburger.jpg/640px-NCI_Visuals_Food_Hamburger.jpg",
   },
   {
     dishName: "Pizza",
-    dayOfWeek: "Jueves",
-    proposerName: "Nicolay",
+    dayOfWeek: DaysOfWeek.jueves,
+    proposerName: ProposerNames.nicolay,
     imageUrl:
       "https://newluxbrand.com/wp-content/uploads/2022/01/pizza-jamo%CC%81n-y-queso-Newlux-1024x1024-optimized.jpg",
   },
   {
     dishName: "Pollo a la brasa",
-    dayOfWeek: "Viernes",
-    proposerName: "Danny",
+    dayOfWeek: DaysOfWeek.viernes,
+    proposerName: ProposerNames.danny,
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0G5c2w0m1kc-nSNDEoB7m9Poqz1XhEW63I9zuJ3vwApL1yprknQjl_RzliwjqZO0vuhE&usqp=CAU",
   },
   {
     dishName: "Tacos",
-    dayOfWeek: "Sábado",
-    proposerName: "Geraldo",
+    dayOfWeek: DaysOfWeek.sabado,
+    proposerName: ProposerNames.geraldo,
     imageUrl:
       "https://elcomercio.pe/resizer/g6Ldu9oMow8edKtfighUHjyTTn4=/1200x1200/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/324VE4IKPRBSFE7QL443A6FZBI.jpg",
   },
   {
     dishName: "Caldo blanco",
-    dayOfWeek: "Domingo",
-    proposerName: "Carmen",
+    dayOfWeek: DaysOfWeek.domingo,
+    proposerName: ProposerNames.carmen,
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxycVg9vHYhP7Ly3Z91O9wNZ1pZBYXZK3VaUYcvTdXC2WQ7hfDpz745eIH0wmW6-WuCDs&usqp=CAU",
   },
 ];
 
-function DishCard({ dayOfWeek, imageUrl, proposerName, dishName }) {
+function DishCard({ dayOfWeek, imageUrl, proposerName, dishName }: DishCardProps) {
+  const capDayOfWeek = capitalizeFirstLetter(dayOfWeek);
+  const capProposerName = capitalizeFirstLetter(proposerName);
+  const capDishName = capitalizeFirstLetter(dishName);
   return (
     <Box sx={{ my: "4px", display: "flex", alignItems: "center", position: "relative" }}>
       <CardMedia
@@ -75,10 +80,10 @@ function DishCard({ dayOfWeek, imageUrl, proposerName, dishName }) {
         }}
       >
         <Typography component="div" variant="h6">
-          {dishName}
+          {capDishName}
         </Typography>
         <Typography variant="subtitle2" color="text.secondary" component="div">
-          {dayOfWeek} - {proposerName}
+          {capDayOfWeek} - {capProposerName}
         </Typography>
       </Box>
       <Paper
@@ -96,7 +101,7 @@ function App() {
       </Box>
       <Box>
         {MenuData.map((menu) => (
-          <DishCard {...menu} />
+          <DishCard key={menu.dishName} {...menu} />
         ))}
       </Box>
       <Box sx={{ position: "fixed", bottom: 0, right: 0 }}>
