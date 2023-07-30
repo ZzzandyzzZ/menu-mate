@@ -1,4 +1,4 @@
-export default function capitalizeFirstLetter(inputString: string): string {
+export function capitalizeFirstLetter(inputString: string): string {
   if (inputString.length === 0) return inputString;
   inputString = inputString.toLowerCase();
   const firstLetter = inputString.charAt(0).toUpperCase();
