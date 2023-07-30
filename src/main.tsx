@@ -1,13 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { CssBaseline } from "@mui/material";
+import "@fontsource/roboto/700.css";
+
 import App from "./App.tsx";
 import "./index.css";
-import "@fontsource/roboto/700.css";
-import { CssBaseline } from "@mui/material";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <CssBaseline />
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );

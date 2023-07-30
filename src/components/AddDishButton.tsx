@@ -1,11 +1,15 @@
 import { IconButton } from "@mui/material";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import AddCircleTwoToneIcon from "@mui/icons-material/AddCircleTwoTone";
+import { useNavigate } from "react-router-dom";
 
 export function AddDishButton() {
-  const handleClick = () => {};
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/new", { replace: true });
+  };
   return (
-    <IconButton size="large" onClick={handleClick}>
-      <AddCircleOutlineIcon fontSize="large" />
+    <IconButton onClick={handleClick} sx={{ fontSize: "50px" }}>
+      <AddCircleTwoToneIcon fontSize="inherit" />
     </IconButton>
   );
 }
