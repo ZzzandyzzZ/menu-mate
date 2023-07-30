@@ -2,6 +2,7 @@ import { Box, CardMedia, Container, IconButton, Paper, Typography } from "@mui/m
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 import capitalizeFirstLetter from "./lib/capitalizeFirstLetter";
+import { DaysOfWeek, type DishCardProps, ProposerNames } from "./types.d";
 
 const MenuData = [
   {

@@ -5,7 +5,7 @@ interface DishCardProps {
   dishName: string;
 }
 
-enum DaysOfWeek {
+export enum DaysOfWeek {
   lunes = "lunes",
   martes = "martes",
   miercoles = "miercoles",
@@ -15,7 +15,7 @@ enum DaysOfWeek {
   domingo = "domingo",
 }
 
-enum ProposerNames {
+export enum ProposerNames {
   andy = "andy",
   carmen = "carmen",
   danny = "danny",
