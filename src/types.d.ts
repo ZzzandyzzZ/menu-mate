@@ -18,6 +18,16 @@ interface DishViewProps {
 
 type DishData = { img: string; title: string };
 
+interface ListDishesViewProps {
+  title: string;
+  type: "list" | "edit";
+}
+
+interface RedirectButtonProps {
+  redirect: string;
+  Icon: React.ElementType;
+}
+
 export enum DaysOfWeek {
   lunes = "lunes",
   martes = "martes",
