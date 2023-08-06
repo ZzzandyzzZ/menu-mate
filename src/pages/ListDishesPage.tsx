@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 
 import { DishCard, AddDishButton } from "@/components";
+import { EditProposalsButton } from "@/components/EditProposalsButton";
 import { MenuData } from "@/data";
 import MainLayout from "@/layout/MainLayout";
 
@@ -17,6 +18,9 @@ export default function ListDishesPage() {
       </Box>
       <Box sx={{ position: "fixed", bottom: 0, right: 0 }}>
         <AddDishButton />
+      </Box>
+      <Box sx={{ position: "fixed", bottom: 0, right: 50 }}>
+        <EditProposalsButton />
       </Box>
     </MainLayout>
   );
