@@ -8,6 +8,16 @@ interface DishCardProps {
 interface MainLayoutProps {
   children: JSX.Element | JSX.Element[];
 }
+
+interface DishViewProps {
+  dishImages: DishData[];
+  dishName?: string;
+  title: string;
+  weekday?: DaysOfWeek | "";
+}
+
+type DishData = { img: string; title: string };
+
 export enum DaysOfWeek {
   lunes = "lunes",
   martes = "martes",
