@@ -33,9 +33,9 @@ const itemData = [
 export default function AddDishPage() {
   return (
     <MainLayout>
-      <Box py={1} textAlign="center">
-        <Typography variant="h6">Agregar plato</Typography>
-      </Box>
+      <Typography variant="h5" textAlign="center" sx={{ py: 1 }}>
+        Agregar plato
+      </Typography>
       <Box component="form">
         <TextField fullWidth label="Nombre del plato" sx={{ my: 1 }} size="small" />
         <TextField fullWidth label="Dia de la semana" select size="small" defaultValue="">
