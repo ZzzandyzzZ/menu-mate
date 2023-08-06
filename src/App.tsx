@@ -7,7 +7,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<ListDishesPage />} />
-      <Route path="/new" element={<AddDishPage />} />
+      <Route path="/new-dish" element={<AddDishPage />} />
     </Routes>
   );
 }
