@@ -1,9 +1,9 @@
 import { Box, ImageList, ImageListItem, MenuItem, TextField, Typography } from "@mui/material";
 
 import MainLayout from "@/layout/MainLayout";
-import { DaysOfWeek } from "@/types.d";
+import { DaysOfWeek, DishViewProps } from "@/types.d";
 
-export function DishView({ title, dishImages, dishName, weekday = "" }) {
+export function DishView({ title, dishImages, dishName = "", weekday = "" }: DishViewProps) {
   return (
     <MainLayout>
       <Typography variant="h5" textAlign="center" sx={{ py: 1 }}>
@@ -21,9 +21,9 @@ export function DishView({ title, dishImages, dishName, weekday = "" }) {
           })}
         </TextField>
         <ImageList cols={2}>
-          {dishImages.map((item) => (
-            <ImageListItem key={item.img} sx={{ bgcolor: "#F6F4EB" }}>
-              <img src={item.img} alt={item.title} />
+          {dishImages.map(({ img, title }) => (
+            <ImageListItem key={img} sx={{ bgcolor: "#F6F4EB" }}>
+              <img src={img} alt={title} />
             </ImageListItem>
           ))}
         </ImageList>
