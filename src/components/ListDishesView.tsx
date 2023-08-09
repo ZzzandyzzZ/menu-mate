@@ -20,14 +20,14 @@ export function ListDishesView({ title, type }: ListDishesViewProps) {
           <DishCard key={menu.dishName} {...menu} />
         ))}
       </Box>
-      <Box sx={{ position: "fixed", bottom: 0, right: 0 }}>
+      <Box sx={{ position: "fixed", bottom: 25, right: 0 }}>
         <RedirectButton redirect="/new-dish" Icon={AddCircleTwoToneIcon} />
       </Box>
-      <Box sx={{ position: "fixed", bottom: 0, right: 50 }}>
+      <Box sx={{ position: "fixed", bottom: 25, right: 50 }}>
         {type === "list" ? (
           <RedirectButton redirect="/proposals" Icon={BuildCircleTwoToneIcon} />
         ) : (
-          <RedirectButton redirect="/" Icon={RemoveRedEyeTwoToneIcon} />
+          <RedirectButton redirect="/list" Icon={RemoveRedEyeTwoToneIcon} />
         )}
       </Box>
     </MainLayout>
