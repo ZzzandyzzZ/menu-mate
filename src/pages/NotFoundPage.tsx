@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import { purple } from "@mui/material/colors";
 
 export default function NotFoundPage() {
   return (

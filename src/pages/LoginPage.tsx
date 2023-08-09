@@ -1,9 +1,9 @@
-import MainLayout from "@/layout/MainLayout";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { Box, Button, MenuItem, Paper, TextField, Typography } from "@mui/material";
+
 import { capitalizeFirstLetter } from "@/lib";
 import { ProposerNames } from "@/types.d";
-import { Box, Button, Checkbox, FormControlLabel, Grid, MenuItem, Paper, TextField, Typography } from "@mui/material";
-import SelectInput from "@mui/material/Select/SelectInput";
-import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import MainLayout from "@/layout/MainLayout";
 
 export default function LoginPage() {
   const [url] = useSearchParams();
