@@ -1,17 +1,22 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import AddDishPage from "@/pages/AddDishPage";
 import EditDishPage from "@/pages/EditDishPage";
 import ListDishesPage from "@/pages/ListDishesPage";
 import ListProposedDishesPage from "./pages/ListProposedDishesPage";
+import LoginPage from "./pages/LoginPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<ListDishesPage />} />
+      <Route path="/" element={<Navigate to="login" />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/list" element={<ListDishesPage />} />
       <Route path="/new-dish" element={<AddDishPage />} />
       <Route path="/edit-dish" element={<EditDishPage />} />
       <Route path="/proposals" element={<ListProposedDishesPage />} />
+      <Route path="/*" element={<NotFoundPage />} />
     </Routes>
   );
 }
