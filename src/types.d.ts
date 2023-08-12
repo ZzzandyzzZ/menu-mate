@@ -1,9 +1,12 @@
-interface DishCardProps {
+interface DishCard {
   dayOfWeek: DaysOfWeek;
-  imageUrl: string;
   proposerName: ProposerNames;
   dishName: string;
 }
+interface DishCardProps extends DishCard {
+  imageUrl: string;
+}
+interface DishCardDataProps extends DishCard {}
 
 interface MainLayoutProps {
   children: JSX.Element | JSX.Element[];
@@ -24,6 +27,8 @@ interface ListDishesViewProps {
 }
 
 interface RedirectButtonProps {
+  disabled?: boolean;
+  fontSize: string;
   redirect: string;
   Icon: React.ElementType;
 }
