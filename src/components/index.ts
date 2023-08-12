@@ -1,2 +1,3 @@
 export * from "./AddDishButton";
-export * from "./DishCard";
+export * from "./EditDishCard";
+export * from "./InfoDishCard";
