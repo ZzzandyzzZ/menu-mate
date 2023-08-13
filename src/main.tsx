@@ -4,7 +4,7 @@ import { HashRouter } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
 
 import App from "./App.tsx";
-import { SessionProvider } from "./contexts/storeContext.tsx";
+import { SessionProvider } from "./contexts/sessionContext.tsx";
 
 import "@fontsource/roboto/700.css";
 import "./index.css";
