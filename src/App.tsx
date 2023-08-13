@@ -12,7 +12,6 @@ function App() {
   const { name } = useSession();
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="login" />} />
       <Route path="/login" element={<LoginPage />} />
       {name && (
         <>
@@ -20,9 +19,10 @@ function App() {
           <Route path="/new-dish" element={<AddDishPage />} />
           <Route path="/edit-dish" element={<EditDishPage />} />
           <Route path="/proposals" element={<ListProposedDishesPage />} />
+          <Route path="/*" element={<NotFoundPage />} />
         </>
       )}
-      <Route path="/*" element={<NotFoundPage />} />
+      <Route path="/*" element={<Navigate to="login" />} />
     </Routes>
   );
 }
