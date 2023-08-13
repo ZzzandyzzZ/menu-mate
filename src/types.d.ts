@@ -1,3 +1,4 @@
+//  Components
 interface DishCard {
   dayOfWeek: DaysOfWeek;
   proposerName: ProposerNames;
@@ -33,6 +34,16 @@ interface RedirectButtonProps {
   Icon: React.ElementType;
 }
 
+// Contexts
+
+interface SessionContext {
+  name: string;
+  roomId: string;
+  setName: (string) => void;
+  setRoomId: (string) => void;
+}
+
+// Globals
 export enum DaysOfWeek {
   lunes = "lunes",
   martes = "martes",
