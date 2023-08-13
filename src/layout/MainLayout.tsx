@@ -21,7 +21,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
         }}
       >
         {children}
-        <Box position="fixed" bottom={0} zIndex={2} bgcolor="gray" width="100%">
+        <Box position="fixed" bottom={0} zIndex={2} bgcolor="gray" left={0} right={0}>
           <Typography variant="h6" textAlign="center">
             Menu Mate
           </Typography>

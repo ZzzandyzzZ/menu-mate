@@ -22,8 +22,17 @@ export default function LoginPage() {
         <Typography component="h1" variant="h5">
           Iniciar sesión
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField id="username" label="Nombre de usuario" name="username" margin="dense" fullWidth required select>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <TextField
+            id="username"
+            label="Nombre de usuario"
+            name="username"
+            margin="dense"
+            defaultValue=""
+            fullWidth
+            required
+            select
+          >
             {Object.values(ProposerNames).map((name) => (
               <MenuItem value={name} key={name}>
                 {capitalizeFirstLetter(name)}

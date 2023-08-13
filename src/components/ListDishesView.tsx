@@ -16,7 +16,7 @@ export function ListDishesView({ title, type }: ListDishesViewProps) {
       <Box display="flex" justifyContent="center" py="5px">
         <Typography variant="h4">{title}</Typography>
       </Box>
-      <Stack width="100%" spacing={1}>
+      <Stack width="100%" spacing={1} mb={5}>
         {MenuData.map((menu) =>
           type === "list" ? (
             <InfoDishCard key={menu.dishName} {...menu} />
@@ -25,10 +25,10 @@ export function ListDishesView({ title, type }: ListDishesViewProps) {
           )
         )}
       </Stack>
-      <Box sx={{ position: "fixed", bottom: 25, right: 0 }}>
+      <Box sx={{ position: "fixed", bottom: 35, right: 2 }}>
         <RedirectButton redirect="/new-dish" fontSize="40px" Icon={AddCircleTwoToneIcon} />
       </Box>
-      <Box sx={{ position: "fixed", bottom: 25, right: 50 }}>
+      <Box sx={{ position: "fixed", bottom: 35, right: 53 }}>
         {type === "list" ? (
           <RedirectButton redirect="/proposals" fontSize="40px" Icon={BuildCircleTwoToneIcon} />
         ) : (
