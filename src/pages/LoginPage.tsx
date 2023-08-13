@@ -1,16 +1,26 @@
+import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Box, Button, MenuItem, Paper, TextField, Typography } from "@mui/material";
 
 import { capitalizeFirstLetter } from "@/lib";
 import { ProposerNames } from "@/types.d";
 import MainLayout from "@/layout/MainLayout";
+import { useSession } from "@/hooks/useSession";
 
 export default function LoginPage() {
-  const [url] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { name, setName, setRoomId, roomId } = useSession();
+
   const handleSubmit = () => {
+    if (roomId == null) throw Error("Room not found");
     navigate("/list");
   };
+
+  useEffect(() => {
+    setRoomId(searchParams.get("roomId"));
+  }, [searchParams, setRoomId]);
+
   return (
     <MainLayout>
       <Paper
@@ -28,6 +38,8 @@ export default function LoginPage() {
             label="Nombre de usuario"
             name="username"
             margin="dense"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             defaultValue=""
             fullWidth
             required
