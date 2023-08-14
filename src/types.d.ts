@@ -1,13 +1,15 @@
 //  Components
 interface DishCard {
   dayOfWeek: DaysOfWeek;
-  proposerName: ProposerNames;
+  imageUrl?: string;
+  proposerName: ProposerNames | "";
   dishName: string;
+  id: number;
+  accepted: bolean;
 }
-interface DishCardProps extends DishCard {
-  imageUrl: string;
-}
-interface DishCardDataProps extends DishCard {}
+interface DishCardProps extends DishCard {}
+
+type DishCardDataProps = Pick<DishCard, "dayOfWeek" | "proposerName" | "dishName">;
 
 interface MainLayoutProps {
   children: JSX.Element | JSX.Element[];
@@ -42,6 +44,33 @@ interface SessionContext {
   setName: (string) => void;
   setRoomId: (string) => void;
 }
+
+interface DishesContext extends DishesReducerState {
+  setDishes: (payload: DishCard[]) => void;
+  setCurrentDish: (payload: DishCard) => void;
+  toggleAcceptedDish: (payload: number) => void;
+}
+
+// Reducers
+
+interface DishesReducerState {
+  currentDish: DishCard;
+  dishes: DishCard[];
+}
+
+type DishesReducerActions =
+  | {
+      type: "SET_CURRENT_DISH";
+      payload: DishCard;
+    }
+  | {
+      type: "SET_DISHES";
+      payload: DishCard[];
+    }
+  | {
+      type: "TOGGLE_ACCEPTED_DISH";
+      payload: number;
+    };
 
 // Globals
 export enum DaysOfWeek {
