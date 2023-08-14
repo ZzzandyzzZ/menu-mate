@@ -6,18 +6,19 @@ import RemoveRedEyeTwoToneIcon from "@mui/icons-material/RemoveRedEyeTwoTone";
 import { EditDishCard } from "./EditDishCard";
 import { InfoDishCard } from "./InfoDishCard";
 import { ListDishesViewProps } from "@/types.d";
-import { MenuData } from "@/data";
 import { RedirectButton } from "./RedirectButton";
 import MainLayout from "@/layout/MainLayout";
+import { useDishes } from "@/hooks/useDishes";
 
-export function ListDishesView({ title, type }: ListDishesViewProps) {
+export function DishesView({ title, type }: ListDishesViewProps) {
+  const { dishes } = useDishes();
   return (
     <MainLayout>
       <Box display="flex" justifyContent="center" py="5px">
         <Typography variant="h4">{title}</Typography>
       </Box>
       <Stack width="100%" spacing={1} mb={5}>
-        {MenuData.map((menu) =>
+        {dishes.map((menu) =>
           type === "list" ? (
             <InfoDishCard key={menu.dishName} {...menu} />
           ) : (
