@@ -6,14 +6,19 @@ import { capitalizeFirstLetter } from "@/lib";
 import { ProposerNames } from "@/types.d";
 import MainLayout from "@/layout/MainLayout";
 import { useSession } from "@/hooks/useSession";
+import { useDishes } from "@/hooks/useDishes";
+import { MenuData } from "@/data";
 
 export default function LoginPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { name, setName, setRoomId, roomId } = useSession();
+  const { name, setName, setRoomId } = useSession();
+  const { setDishes } = useDishes();
 
   const handleSubmit = () => {
-    if (roomId == null) throw Error("Room not found");
+    // if (roomId == null) throw Error("Room not found");
+    setDishes(MenuData);
+    console.log({ MenuData });
     navigate("/list");
   };
 
