@@ -3,9 +3,9 @@ import { Box, CardMedia, Paper } from "@mui/material";
 import { type DishCardProps } from "@/types.d";
 import { DishCardData } from "./DishCardData";
 
-export function InfoDishCard({ dayOfWeek, imageUrl, proposerName, dishName }: DishCardProps) {
+export function InfoDishCard({ dayOfWeek, imageUrl, proposerName, dishName, accepted }: DishCardProps) {
   return (
-    <Box sx={{ display: "flex", alignItems: "center", position: "relative" }}>
+    <Box sx={{ display: accepted ? "flex" : "none", alignItems: "center", position: "relative" }}>
       <CardMedia
         component="img"
         image={imageUrl}
