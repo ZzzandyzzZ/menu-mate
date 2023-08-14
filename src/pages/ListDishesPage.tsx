@@ -1,5 +1,5 @@
-import { ListDishesView } from "@/components/ListDishesView";
+import { DishesView } from "@/components/DishesView";
 
 export default function ListDishesPage() {
-  return <ListDishesView title="Menu Semanal" type="list" />;
+  return <DishesView title="Menu Semanal" type="list" />;
 }
