@@ -3,8 +3,8 @@ import { Typography } from "@mui/material";
 import { capitalizeFirstLetter } from "@/lib";
 import { DishCardDataProps } from "@/types.d";
 
-export function DishCardData({ dayOfWeek, proposerName, dishName }: DishCardDataProps) {
-  const capDayOfWeek = capitalizeFirstLetter(dayOfWeek);
+export function DishCardData({ weekday, proposerName, dishName }: DishCardDataProps) {
+  const capDayOfWeek = capitalizeFirstLetter(weekday);
   const capProposerName = capitalizeFirstLetter(proposerName);
   const capDishName = capitalizeFirstLetter(dishName);
   return (

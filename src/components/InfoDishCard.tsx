@@ -3,7 +3,7 @@ import { Box, CardMedia, Paper } from "@mui/material";
 import { type DishCardProps } from "@/types.d";
 import { DishCardData } from "./DishCardData";
 
-export function InfoDishCard({ dayOfWeek, imageUrl, proposerName, dishName, accepted }: DishCardProps) {
+export function InfoDishCard({ weekday, imageUrl, proposerName, dishName, accepted }: DishCardProps) {
   return (
     <Box sx={{ display: accepted ? "flex" : "none", alignItems: "center", position: "relative" }}>
       <CardMedia
@@ -25,7 +25,7 @@ export function InfoDishCard({ dayOfWeek, imageUrl, proposerName, dishName, acce
           pl: 1,
         }}
       >
-        <DishCardData dayOfWeek={dayOfWeek} proposerName={proposerName} dishName={dishName} />
+        <DishCardData weekday={weekday} proposerName={proposerName} dishName={dishName} />
       </Box>
       <Paper
         elevation={6}

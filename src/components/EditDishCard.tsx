@@ -8,13 +8,13 @@ import { type DishCardProps } from "@/types.d";
 import { DishCardData } from "./DishCardData";
 import { useDishes } from "@/hooks/useDishes";
 
-export function EditDishCard({ dayOfWeek, proposerName, dishName, id, accepted }: DishCardProps) {
+export function EditDishCard({ weekday, proposerName, dishName, id, accepted }: DishCardProps) {
   const navigate = useNavigate();
   const { setCurrentDish, toggleAcceptedDish } = useDishes();
 
   const onDishCardClick = () => {
     if (accepted) return;
-    setCurrentDish({ dayOfWeek, proposerName, dishName, id, accepted });
+    setCurrentDish({ weekday, proposerName, dishName, id, accepted });
     navigate("/edit-dish");
   };
 
@@ -23,7 +23,7 @@ export function EditDishCard({ dayOfWeek, proposerName, dishName, id, accepted }
       <Grid container justifyContent="center" alignItems="center">
         <Grid item xs={9} textAlign="left">
           <CardActionArea onClick={onDishCardClick} disabled={accepted}>
-            <DishCardData dayOfWeek={dayOfWeek} proposerName={proposerName} dishName={dishName} />
+            <DishCardData weekday={weekday} proposerName={proposerName} dishName={dishName} />
           </CardActionArea>
         </Grid>
         <Grid item xs={3} textAlign="center">
