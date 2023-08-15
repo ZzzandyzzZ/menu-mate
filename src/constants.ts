@@ -1,3 +1,5 @@
+import type { SessionState, DishesReducerState } from "./types.d";
+
 export const dishImageData = [
   {
     img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
@@ -24,3 +26,19 @@ export const dishImageData = [
     title: "Honey",
   },
 ];
+
+export const dishesInitialState: DishesReducerState = {
+  currentDish: {
+    dishName: "",
+    weekday: "",
+    proposerName: "",
+    accepted: false,
+    id: "0-0-0-0-0",
+  },
+  dishes: [],
+};
+
+export const sessionInitialState: SessionState = {
+  name: "",
+  roomId: "",
+};
