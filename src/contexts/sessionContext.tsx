@@ -1,28 +1,21 @@
-import { createContext, useState, type PropsWithChildren } from "react";
+import { createContext, useState, type PropsWithChildren, useCallback } from "react";
 
-import { type SessionContext as SessionContextType } from "@/types.d";
-
-const sessionInitialState = {
-  name: "",
-  roomId: "",
-};
+import type { ProposerNames, SessionContext as SessionContextType } from "@/types.d";
+import { sessionInitialState } from "@/constants";
 
 export const SessionContext = createContext<SessionContextType | null>(null);
 
 export function SessionProvider({ children }: PropsWithChildren) {
   const [session, setSession] = useState(sessionInitialState);
   const { name, roomId } = session;
-  const setName = (name: string) => {
-    setSession({
-      ...session,
-      name,
-    });
+
+  const setName = (name: ProposerNames) => {
+    setSession((session) => ({ ...session, name }));
   };
-  const setRoomId = (roomId: string) => {
-    setSession({
-      ...session,
-      roomId,
-    });
-  };
+
+  const setRoomId = useCallback((roomId: string) => {
+    setSession((session) => ({ ...session, roomId }));
+  }, []);
+
   return <SessionContext.Provider value={{ name, roomId, setName, setRoomId }}>{children}</SessionContext.Provider>;
 }
