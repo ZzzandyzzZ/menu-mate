@@ -1,23 +1,13 @@
-import { type PropsWithChildren, createContext, useReducer } from "react";
+import { type PropsWithChildren, createContext, useReducer, useCallback } from "react";
 
 import { dishesReducer } from "@/reducers/dishesReducer";
-import { DishCard, DishesReducerState, type DishesContext as DishesContextType, DaysOfWeek } from "@/types.d";
+import { DishCard, UUID, type DishesContext as DishesContextType, EdditableDishCard } from "@/types.d";
+import { dishesInitialState } from "@/constants";
 
 export const DishesContext = createContext<DishesContextType | null>(null);
 
-const initialState: DishesReducerState = {
-  currentDish: {
-    dishName: "",
-    dayOfWeek: DaysOfWeek.lunes,
-    proposerName: "",
-    accepted: false,
-    id: -1,
-  },
-  dishes: [],
-};
-
 const useDishesReducer = () => {
-  const [state, dispatch] = useReducer(dishesReducer, initialState);
+  const [state, dispatch] = useReducer(dishesReducer, dishesInitialState);
   const { currentDish, dishes } = state;
 
   const setDishes = (payload: DishCard[]) => {
@@ -27,16 +17,32 @@ const useDishesReducer = () => {
   const setCurrentDish = (payload: DishCard) => {
     dispatch({ type: "SET_CURRENT_DISH", payload });
   };
-  const toggleAcceptedDish = (payload: number) => {
+
+  const clearCurrDish = useCallback(() => {
+    dispatch({ type: "CLEAR_CURRENT_DISH" });
+  }, []);
+
+  const addDish = (payload: DishCard) => {
+    dispatch({ type: "ADD_DISH", payload });
+  };
+
+  const toggleAcceptedDish = (payload: UUID) => {
     dispatch({ type: "TOGGLE_ACCEPTED_DISH", payload });
+  };
+
+  const updateDish = (payload: EdditableDishCard) => {
+    dispatch({ type: "UPDATE_CURR_DISH", payload });
   };
 
   return {
     currentDish,
     dishes,
-    setDishes,
+    addDish,
+    clearCurrDish,
     setCurrentDish,
+    setDishes,
     toggleAcceptedDish,
+    updateDish,
   };
 };
 export const DishesProvider = ({ children }: PropsWithChildren) => {
