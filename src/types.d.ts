@@ -1,15 +1,20 @@
-//  Components
+// Globals
+type UUID = `${string}-${string}-${string}-${string}-${string}`;
 interface DishCard {
-  dayOfWeek: DaysOfWeek;
+  accepted: bolean;
+  weekday: DaysOfWeek | "";
+  dishName: string;
+  id: UUID;
   imageUrl?: string;
   proposerName: ProposerNames | "";
-  dishName: string;
-  id: number;
-  accepted: bolean;
 }
+
+//  Components
+
 interface DishCardProps extends DishCard {}
 
-type DishCardDataProps = Pick<DishCard, "dayOfWeek" | "proposerName" | "dishName">;
+type DishCardDataProps = Pick<DishCard, "weekday" | "proposerName" | "dishName">;
+type EdditableDishCard = Partial<Pick<DishCard, Exclude<keyof DishCard, "id" | "proposerName">>>;
 
 interface MainLayoutProps {
   children: JSX.Element | JSX.Element[];
@@ -17,9 +22,7 @@ interface MainLayoutProps {
 
 interface DishViewProps {
   dishImages: DishData[];
-  dishName?: string;
-  title: string;
-  weekday?: DaysOfWeek | "";
+  type: "edit" | "add";
 }
 
 type DishData = { img: string; title: string };
@@ -38,17 +41,14 @@ interface RedirectButtonProps {
 
 // Contexts
 
-interface SessionContext {
-  name: string;
+interface SessionState {
+  name: ProposerNames | "";
   roomId: string;
-  setName: (string) => void;
-  setRoomId: (string) => void;
 }
 
-interface DishesContext extends DishesReducerState {
-  setDishes: (payload: DishCard[]) => void;
-  setCurrentDish: (payload: DishCard) => void;
-  toggleAcceptedDish: (payload: number) => void;
+interface SessionContext extends SessionState {
+  setName: (string) => void;
+  setRoomId: (string) => void;
 }
 
 // Reducers
@@ -56,6 +56,15 @@ interface DishesContext extends DishesReducerState {
 interface DishesReducerState {
   currentDish: DishCard;
   dishes: DishCard[];
+}
+
+interface DishesContext extends DishesReducerState {
+  addDish: (payload: DishCard) => void;
+  clearCurrDish: () => void;
+  setCurrentDish: (payload: DishCard) => void;
+  setDishes: (payload: DishCard[]) => void;
+  toggleAcceptedDish: (payload: UUID) => void;
+  updateDish: (payload: EdditableDishCard) => void;
 }
 
 type DishesReducerActions =
@@ -69,7 +78,18 @@ type DishesReducerActions =
     }
   | {
       type: "TOGGLE_ACCEPTED_DISH";
-      payload: number;
+      payload: UUID;
+    }
+  | {
+      type: "ADD_DISH";
+      payload: DishCard;
+    }
+  | {
+      type: "CLEAR_CURRENT_DISH";
+    }
+  | {
+      type: "UPDATE_CURR_DISH";
+      payload: EdditableDishCard;
     };
 
 // Globals
