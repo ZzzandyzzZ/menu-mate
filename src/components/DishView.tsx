@@ -6,31 +6,46 @@ import { DaysOfWeek, DishViewProps } from "@/types.d";
 import { useDishes } from "@/hooks/useDishes";
 import MainLayout from "@/layout/MainLayout";
 import { useSession } from "@/hooks/useSession";
+import { useDebounce } from "@/hooks/useDebounce";
 
 export function DishView({ dishImages, type }: DishViewProps) {
   const {
-    currentDish: { dishName, weekday },
+    currentDish: { dishName, weekday, id },
     clearCurrDish,
-    addDish,
-    updateDish,
+    addDishToList,
+    updateCurrDish,
+    updateDishOnList,
   } = useDishes();
-  const { name } = useSession();
+  const { proposerName } = useSession();
   const navigate = useNavigate();
+  const debouncedName = useDebounce(dishName, 300);
 
   useEffect(() => {
-    console.log("ADD", type, clearCurrDish);
     if (type == "add") clearCurrDish();
   }, [clearCurrDish, type]);
 
+  useEffect(() => {
+    if (debouncedName === "") return;
+    console.log("Request");
+  }, [debouncedName]);
+
   const handleClick = () => {
     if (type == "add") {
-      addDish({ id: crypto.randomUUID(), dishName, weekday, imageUrl: "", accepted: false, proposerName: name });
-      navigate("/list");
+      addDishToList({
+        id: crypto.randomUUID(),
+        dishName,
+        weekday,
+        imageUrl: "",
+        accepted: false,
+        proposerName,
+      });
+      navigate("/proposals");
     } else {
-      console.log("Actualizar");
+      updateDishOnList({ id, dish: { dishName, weekday } });
+      navigate("/proposals");
     }
   };
-  console.log({ dishName, weekday });
+
   return (
     <MainLayout>
       <Typography variant="h5" textAlign="center" sx={{ py: 1 }}>
@@ -44,7 +59,7 @@ export function DishView({ dishImages, type }: DishViewProps) {
           size="small"
           value={dishName}
           onChange={(e) => {
-            updateDish({ dishName: e.target.value });
+            updateCurrDish({ dishName: e.target.value });
           }}
         />
         <TextField
@@ -54,7 +69,7 @@ export function DishView({ dishImages, type }: DishViewProps) {
           size="small"
           value={weekday}
           onChange={(e) => {
-            updateDish({ weekday: e.target.value as DaysOfWeek });
+            updateCurrDish({ weekday: e.target.value as DaysOfWeek });
           }}
         >
           {Object.values(DaysOfWeek).map((option) => {

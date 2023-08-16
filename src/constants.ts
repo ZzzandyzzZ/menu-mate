@@ -39,6 +39,6 @@ export const dishesInitialState: DishesReducerState = {
 };
 
 export const sessionInitialState: SessionState = {
-  name: "",
+  proposerName: "",
   roomId: "",
 };

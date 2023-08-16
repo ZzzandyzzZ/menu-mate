@@ -10,39 +10,44 @@ const useDishesReducer = () => {
   const [state, dispatch] = useReducer(dishesReducer, dishesInitialState);
   const { currentDish, dishes } = state;
 
-  const setDishes = (payload: DishCard[]) => {
-    dispatch({ type: "SET_DISHES", payload });
+  const setDishesList = (payload: DishCard[]) => {
+    dispatch({ type: "SET_DISHES_LIST", payload });
   };
 
-  const setCurrentDish = (payload: DishCard) => {
-    dispatch({ type: "SET_CURRENT_DISH", payload });
+  const setCurrDish = (payload: DishCard) => {
+    dispatch({ type: "SET_CURR_DISH", payload });
   };
 
   const clearCurrDish = useCallback(() => {
-    dispatch({ type: "CLEAR_CURRENT_DISH" });
+    dispatch({ type: "CLEAR_CURR_DISH" });
   }, []);
 
-  const addDish = (payload: DishCard) => {
-    dispatch({ type: "ADD_DISH", payload });
+  const addDishToList = (payload: DishCard) => {
+    dispatch({ type: "ADD_DISH_TO_LIST", payload });
   };
 
-  const toggleAcceptedDish = (payload: UUID) => {
-    dispatch({ type: "TOGGLE_ACCEPTED_DISH", payload });
+  const toggleAcceptedOnList = (payload: UUID) => {
+    dispatch({ type: "TOGGLE_ACCEPTED_ON_LIST", payload });
   };
 
-  const updateDish = (payload: EdditableDishCard) => {
+  const updateCurrDish = (payload: EdditableDishCard) => {
     dispatch({ type: "UPDATE_CURR_DISH", payload });
+  };
+
+  const updateDishOnList = (payload: { id: UUID; dish: EdditableDishCard }) => {
+    dispatch({ type: "UPDATE_DISH_ON_LIST", payload });
   };
 
   return {
     currentDish,
     dishes,
-    addDish,
+    addDishToList,
     clearCurrDish,
-    setCurrentDish,
-    setDishes,
-    toggleAcceptedDish,
-    updateDish,
+    setCurrDish,
+    setDishesList,
+    toggleAcceptedOnList,
+    updateCurrDish,
+    updateDishOnList,
   };
 };
 export const DishesProvider = ({ children }: PropsWithChildren) => {

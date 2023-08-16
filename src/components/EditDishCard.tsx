@@ -10,11 +10,11 @@ import { useDishes } from "@/hooks/useDishes";
 
 export function EditDishCard({ weekday, proposerName, dishName, id, accepted }: DishCardProps) {
   const navigate = useNavigate();
-  const { setCurrentDish, toggleAcceptedDish } = useDishes();
+  const { setCurrDish, toggleAcceptedOnList } = useDishes();
 
   const onDishCardClick = () => {
     if (accepted) return;
-    setCurrentDish({ weekday, proposerName, dishName, id, accepted });
+    setCurrDish({ weekday, proposerName, dishName, id, accepted });
     navigate("/edit-dish");
   };
 
@@ -29,7 +29,7 @@ export function EditDishCard({ weekday, proposerName, dishName, id, accepted }: 
         <Grid item xs={3} textAlign="center">
           <IconButton
             onClick={() => {
-              toggleAcceptedDish(id);
+              toggleAcceptedOnList(id);
             }}
             sx={{ fontSize: "22px", bgcolor: "rgba(255, 255, 255, 0.45)" }}
           >

@@ -7,15 +7,17 @@ export const SessionContext = createContext<SessionContextType | null>(null);
 
 export function SessionProvider({ children }: PropsWithChildren) {
   const [session, setSession] = useState(sessionInitialState);
-  const { name, roomId } = session;
+  const { proposerName, roomId } = session;
 
-  const setName = (name: ProposerNames) => {
-    setSession((session) => ({ ...session, name }));
+  const setName = (proposerName: ProposerNames) => {
+    setSession((session) => ({ ...session, proposerName }));
   };
 
   const setRoomId = useCallback((roomId: string) => {
     setSession((session) => ({ ...session, roomId }));
   }, []);
 
-  return <SessionContext.Provider value={{ name, roomId, setName, setRoomId }}>{children}</SessionContext.Provider>;
+  return (
+    <SessionContext.Provider value={{ proposerName, roomId, setName, setRoomId }}>{children}</SessionContext.Provider>
+  );
 }

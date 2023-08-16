@@ -12,13 +12,12 @@ import { MenuData } from "@/data";
 export default function LoginPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { name, setName, setRoomId } = useSession();
-  const { setDishes } = useDishes();
+  const { proposerName, setName, setRoomId } = useSession();
+  const { setDishesList } = useDishes();
 
   const handleSubmit = () => {
     // if (roomId == null) throw Error("Room not found");
-    setDishes(MenuData);
-    console.log({ MenuData });
+    setDishesList(MenuData);
     navigate("/list");
   };
 
@@ -39,20 +38,20 @@ export default function LoginPage() {
         </Typography>
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <TextField
-            id="username"
+            id="proposerName"
             label="Nombre de usuario"
-            name="username"
+            name="proposerName"
             margin="dense"
-            value={name}
+            value={proposerName}
             onChange={(e) => setName(e.target.value)}
             defaultValue=""
             fullWidth
             required
             select
           >
-            {Object.values(ProposerNames).map((name) => (
-              <MenuItem value={name} key={name}>
-                {capitalizeFirstLetter(name)}
+            {Object.values(ProposerNames).map((proposerName) => (
+              <MenuItem value={proposerName} key={proposerName}>
+                {capitalizeFirstLetter(proposerName)}
               </MenuItem>
             ))}
           </TextField>

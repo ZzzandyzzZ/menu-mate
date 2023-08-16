@@ -42,7 +42,7 @@ interface RedirectButtonProps {
 // Contexts
 
 interface SessionState {
-  name: ProposerNames | "";
+  proposerName: ProposerNames | "";
   roomId: string;
 }
 
@@ -59,37 +59,42 @@ interface DishesReducerState {
 }
 
 interface DishesContext extends DishesReducerState {
-  addDish: (payload: DishCard) => void;
+  addDishToList: (payload: DishCard) => void;
   clearCurrDish: () => void;
-  setCurrentDish: (payload: DishCard) => void;
-  setDishes: (payload: DishCard[]) => void;
-  toggleAcceptedDish: (payload: UUID) => void;
-  updateDish: (payload: EdditableDishCard) => void;
+  setCurrDish: (payload: DishCard) => void;
+  setDishesList: (payload: DishCard[]) => void;
+  toggleAcceptedOnList: (payload: UUID) => void;
+  updateCurrDish: (payload: EdditableDishCard) => void;
+  updateDishOnList: (payload: { id: UUID; dish: EdditableDishCard }) => void;
 }
 
 type DishesReducerActions =
   | {
-      type: "SET_CURRENT_DISH";
+      type: "SET_CURR_DISH";
       payload: DishCard;
     }
   | {
-      type: "SET_DISHES";
+      type: "SET_DISHES_LIST";
       payload: DishCard[];
     }
   | {
-      type: "TOGGLE_ACCEPTED_DISH";
+      type: "TOGGLE_ACCEPTED_ON_LIST";
       payload: UUID;
     }
   | {
-      type: "ADD_DISH";
+      type: "ADD_DISH_TO_LIST";
       payload: DishCard;
     }
   | {
-      type: "CLEAR_CURRENT_DISH";
+      type: "CLEAR_CURR_DISH";
     }
   | {
       type: "UPDATE_CURR_DISH";
       payload: EdditableDishCard;
+    }
+  | {
+      type: "UPDATE_DISH_ON_LIST";
+      payload: { id: UUID; dish: EdditableDishCard };
     };
 
 // Globals

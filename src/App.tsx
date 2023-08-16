@@ -9,11 +9,11 @@ import NotFoundPage from "./pages/NotFoundPage";
 import { useSession } from "./hooks/useSession";
 
 function App() {
-  const { name } = useSession();
+  const { proposerName } = useSession();
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
-      {name && (
+      {proposerName && (
         <>
           <Route path="/list" element={<ListDishesPage />} />
           <Route path="/new-dish" element={<AddDishPage />} />
