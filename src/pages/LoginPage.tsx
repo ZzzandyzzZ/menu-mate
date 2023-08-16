@@ -14,6 +14,8 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const { proposerName, setName, setRoomId } = useSession();
   const { setDishesList } = useDishes();
+  console.log(process.env);
+  console.log(process.env.USER_PASSWORDS);
 
   const handleSubmit = () => {
     // if (roomId == null) throw Error("Room not found");
