@@ -15,6 +15,7 @@ export default function LoginPage() {
   const { proposerName, setName, setRoomId } = useSession();
   const { setDishesList } = useDishes();
   console.log(import.meta.env);
+  console.log(import.meta.env.USER_PASSWORDS);
   console.log(import.meta.env.VITE_USER_PASSWORDS);
 
   const handleSubmit = () => {
