@@ -1,0 +1,24 @@
+'use client'
+import { createContext, useState, type PropsWithChildren, useCallback } from 'react'
+
+import type { ProposerNames, SessionContext as SessionContextType } from '@/types.d'
+import { sessionInitialState } from '@/constants'
+
+export const SessionContext = createContext<SessionContextType | null>(null)
+
+export function SessionProvider ({ children }: PropsWithChildren) {
+  const [session, setSession] = useState(sessionInitialState)
+  const { proposerName, roomId } = session
+
+  const setName = (proposerName: ProposerNames) => {
+    setSession((session) => ({ ...session, proposerName }))
+  }
+
+  const setRoomId = useCallback((roomId: string) => {
+    setSession((session) => ({ ...session, roomId }))
+  }, [])
+
+  return (
+    <SessionContext.Provider value={{ proposerName, roomId, setName, setRoomId }}>{children}</SessionContext.Provider>
+  )
+}
