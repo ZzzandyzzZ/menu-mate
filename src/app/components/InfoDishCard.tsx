@@ -3,7 +3,7 @@ import { Box, CardMedia, Paper } from '@mui/material'
 import { type DishCardProps } from '@/types.d'
 import { DishCardData } from './DishCardData'
 
-export function InfoDishCard ({ weekday, imageUrl, proposerName, dishName, accepted }: DishCardProps) {
+export function InfoDishCard ({ weekday, imageUrl, proposerName, dishName, accepted }: DishCardProps): JSX.Element {
   return (
     <Box sx={{ display: accepted ? 'flex' : 'none', alignItems: 'center', position: 'relative' }}>
       <CardMedia

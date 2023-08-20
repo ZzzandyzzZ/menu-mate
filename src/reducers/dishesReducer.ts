@@ -1,7 +1,7 @@
 import { dishesInitialState } from '@/constants'
 import { type DishesReducerActions, type DishesReducerState } from '@/types.d'
 
-export function dishesReducer (state: DishesReducerState, action: DishesReducerActions) {
+export function dishesReducer (state: DishesReducerState, action: DishesReducerActions): DishesReducerState {
   switch (action.type) {
     case 'SET_CURR_DISH':
       return { ...state, currentDish: action.payload }

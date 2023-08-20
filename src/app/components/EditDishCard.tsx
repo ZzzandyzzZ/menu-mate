@@ -8,11 +8,11 @@ import { type DishCardProps } from '@/types.d'
 import { DishCardData } from './DishCardData'
 import { useDishes } from '@/hooks/useDishes'
 
-export function EditDishCard ({ weekday, proposerName, dishName, id, accepted }: DishCardProps) {
+export function EditDishCard ({ weekday, proposerName, dishName, id, accepted }: DishCardProps): JSX.Element {
   const router = useRouter()
   const { setCurrDish, toggleAcceptedOnList } = useDishes()
 
-  const onDishCardClick = () => {
+  const onDishCardClick = (): void => {
     if (accepted) return
     setCurrDish({ weekday, proposerName, dishName, id, accepted })
     router.push('/dishes/edit')

@@ -3,9 +3,9 @@ import { useRouter } from 'next/navigation'
 import { IconButton } from '@mui/material'
 import BuildCircleTwoToneIcon from '@mui/icons-material/BuildCircleTwoTone'
 
-export function EditProposalsButton () {
+export function EditProposalsButton (): JSX.Element {
   const router = useRouter()
-  const handleClick = () => {
+  const handleClick = (): void => {
     router.push('/proposals')
   }
   return (

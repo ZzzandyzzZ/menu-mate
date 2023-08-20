@@ -6,11 +6,11 @@ import { sessionInitialState } from '@/constants'
 
 export const SessionContext = createContext<SessionContextType | null>(null)
 
-export function SessionProvider ({ children }: PropsWithChildren) {
+export function SessionProvider ({ children }: PropsWithChildren): JSX.Element {
   const [session, setSession] = useState(sessionInitialState)
   const { proposerName, roomId } = session
 
-  const setName = (proposerName: ProposerNames) => {
+  const setName = (proposerName: ProposerNames): void => {
     setSession((session) => ({ ...session, proposerName }))
   }
 
