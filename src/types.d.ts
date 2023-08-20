@@ -1,7 +1,7 @@
 // Globals
 type UUID = `${string}-${string}-${string}-${string}-${string}`
 interface DishCard {
-  accepted: bolean
+  accepted: boolean
   weekday: DaysOfWeek | ''
   dishName: string
   id: UUID
