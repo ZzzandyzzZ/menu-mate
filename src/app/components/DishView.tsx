@@ -1,33 +1,35 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { Box, Button, ImageList, ImageListItem, MenuItem, TextField, Typography } from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search'
+import { Box, Button, IconButton, ImageList, ImageListItem, InputAdornment, MenuItem, TextField, Typography } from '@mui/material'
 
-import { DaysOfWeek, type DishViewProps, type UUID } from '@/types.d'
+import { DaysOfWeek, type ImgDishData, type DishViewProps, type UUID } from '@/types.d'
 import { useDishes } from '@/hooks/useDishes'
 import { useSession } from '@/hooks/useSession'
 import { useDebounce } from '@/hooks/useDebounce'
+import { fetchSerpapiImages } from '../actions/serpapi'
 
-export function DishView ({ dishImages, type }: DishViewProps): JSX.Element {
+export function DishView({ type }: DishViewProps): JSX.Element {
   const {
     currentDish: { dishName, weekday, id },
     clearCurrDish,
     addDishToList,
     updateCurrDish,
-    updateDishOnList
+    updateDishOnList,
   } = useDishes()
   const { proposerName } = useSession()
   const debouncedName = useDebounce(dishName, 500)
   const router = useRouter()
+  const [dishImages, setDishImages] = useState<ImgDishData[]>([])
 
   useEffect(() => {
     if (type === 'add') clearCurrDish()
   }, [clearCurrDish, type])
 
   useEffect(() => {
-    console.log({ debouncedName })
     if (debouncedName === '') return
     console.log('Request')
   }, [debouncedName])
@@ -40,7 +42,7 @@ export function DishView ({ dishImages, type }: DishViewProps): JSX.Element {
         weekday,
         imageUrl: '',
         accepted: false,
-        proposerName
+        proposerName,
       })
       router.push('/proposals')
     } else {
@@ -48,7 +50,14 @@ export function DishView ({ dishImages, type }: DishViewProps): JSX.Element {
       router.push('/proposals')
     }
   }
-
+  const handleSearchClick = async (): Promise<void> => {
+    try {
+      const images = await fetchSerpapiImages(dishName)
+      setDishImages(images)
+    } catch (error) {
+      console.error(error)
+    }
+  }
   return (
     <>
       <Typography variant="h5" textAlign="center" sx={{ py: 1 }}>
@@ -63,6 +72,19 @@ export function DishView ({ dishImages, type }: DishViewProps): JSX.Element {
           value={dishName}
           onChange={(e) => {
             updateCurrDish({ dishName: e.target.value })
+          }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => {
+                    void handleSearchClick()
+                  }}
+                >
+                  <SearchIcon />
+                </IconButton>
+              </InputAdornment>
+            ),
           }}
         />
         <TextField
@@ -84,7 +106,7 @@ export function DishView ({ dishImages, type }: DishViewProps): JSX.Element {
           })}
         </TextField>
         <ImageList cols={2}>
-          {dishImages.map(({ img, title }) => (
+          {dishImages.slice(0, 6).map(({ img, title }) => (
             <ImageListItem key={img} sx={{ bgcolor: '#F6F4EB' }}>
               <img src={img} alt={title} />
             </ImageListItem>
@@ -94,6 +116,6 @@ export function DishView ({ dishImages, type }: DishViewProps): JSX.Element {
           {type === 'edit' ? 'Editar' : 'Agregar'}
         </Button>
       </Box>
-        </>
+    </>
   )
 }
