@@ -17,11 +17,13 @@ type DishCardDataProps = Pick<DishCard, 'weekday' | 'proposerName' | 'dishName'>
 type EdditableDishCard = Partial<Pick<DishCard, Exclude<keyof DishCard, 'id' | 'proposerName'>>>
 
 interface DishViewProps {
-  dishImages: DishData[]
   type: 'edit' | 'add'
 }
 
-interface DishData { img: string, title: string }
+interface ImgDishData {
+  img: string
+  title: string
+}
 
 interface ListDishesViewProps {
   title: string
@@ -61,37 +63,37 @@ interface DishesContext extends DishesReducerState {
   setDishesList: (payload: DishCard[]) => void
   toggleAcceptedOnList: (payload: UUID) => void
   updateCurrDish: (payload: EdditableDishCard) => void
-  updateDishOnList: (payload: { id: UUID, dish: EdditableDishCard }) => void
+  updateDishOnList: (payload: { id: UUID; dish: EdditableDishCard }) => void
 }
 
 type DishesReducerActions =
   | {
-    type: 'SET_CURR_DISH'
-    payload: DishCard
-  }
+      type: 'SET_CURR_DISH'
+      payload: DishCard
+    }
   | {
-    type: 'SET_DISHES_LIST'
-    payload: DishCard[]
-  }
+      type: 'SET_DISHES_LIST'
+      payload: DishCard[]
+    }
   | {
-    type: 'TOGGLE_ACCEPTED_ON_LIST'
-    payload: UUID
-  }
+      type: 'TOGGLE_ACCEPTED_ON_LIST'
+      payload: UUID
+    }
   | {
-    type: 'ADD_DISH_TO_LIST'
-    payload: DishCard
-  }
+      type: 'ADD_DISH_TO_LIST'
+      payload: DishCard
+    }
   | {
-    type: 'CLEAR_CURR_DISH'
-  }
+      type: 'CLEAR_CURR_DISH'
+    }
   | {
-    type: 'UPDATE_CURR_DISH'
-    payload: EdditableDishCard
-  }
+      type: 'UPDATE_CURR_DISH'
+      payload: EdditableDishCard
+    }
   | {
-    type: 'UPDATE_DISH_ON_LIST'
-    payload: { id: UUID, dish: EdditableDishCard }
-  }
+      type: 'UPDATE_DISH_ON_LIST'
+      payload: { id: UUID; dish: EdditableDishCard }
+    }
 
 // Globals
 export enum DaysOfWeek {
