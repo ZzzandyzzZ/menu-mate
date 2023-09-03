@@ -1,9 +1,9 @@
-interface postToNotionDBProps {
-  id: string
-  dishName: string
-  imageUrl: string
+interface postToNotionDBProps extends Dish {
   roomId: string
-  accepted: boolean
   dateStr: string
-  proposerName: string
+}
+
+interface updateNotionPageProps {
+  edditableDish: EdditableDish
+  pageId: string
 }
