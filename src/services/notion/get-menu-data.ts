@@ -1,10 +1,10 @@
 import { fetchNotionDB } from '@/actions/notion-action'
 import { getWeekDayFromNumber } from '@/lib/date'
 
-export const getNotionMenuData = async () => {
-  const results = await fetchNotionDB()
+export const getNotionMenuData = async (): Promise<Dish[]> => {
+  const results = await fetchNotionDB('1')
   return results.map((page) => {
-    if (!('properties' in page)) return {}
+    if (!('properties' in page)) throw Error('Not data found in Notion API')
     const { properties } = page
     const {
       id,
@@ -14,9 +14,8 @@ export const getNotionMenuData = async () => {
       accepted,
       weekday
     }: NotionProperties = properties
-
     const weekdayDate = new Date(weekday.date.start)
-    return {
+    const dish: Dish = {
       accepted: accepted.checkbox,
       weekday: getWeekDayFromNumber(weekdayDate.getDay()),
       dishName: dishName.rich_text[0].plain_text,
@@ -24,5 +23,6 @@ export const getNotionMenuData = async () => {
       imageUrl: imageUrl.rich_text[0].plain_text,
       proposerName: proposerName.select.name
     }
+    return dish
   })
 }
