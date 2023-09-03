@@ -1,4 +1,4 @@
-import { WeekDays } from '@/types.d'
+import { WeekDays } from '@/enums'
 
 export function getMondayDate(date: Date) {
   const tmpDate = new Date(date)
