@@ -28,7 +28,15 @@ export const fetchNotionDB = async () => {
   return results
 }
 
-export async function addToDatabase ({ id, dishName, imageUrl, roomId, accepted, dateStr, proposerName }: addToDatabaseProps) {
+export async function addToDatabase({
+  id,
+  dishName,
+  imageUrl,
+  roomId,
+  accepted,
+  dateStr,
+  proposerName
+}: addToDatabaseProps) {
   const { notion, databaseId } = getNotionClient()
   const date = new Date(dateStr)
   const response = await notion.pages.create({

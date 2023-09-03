@@ -1,13 +1,13 @@
 import { WeekDays } from '@/types.d'
 
-export function getMondayDate (date: Date) {
+export function getMondayDate(date: Date) {
   const tmpDate = new Date(date)
   const day = tmpDate.getDay()
   const diff = tmpDate.getDate() - day + (day === 0 ? -6 : 1)
   return new Date(tmpDate.setDate(diff))
 }
 
-export function getWeekDayFromNumber (dayNumber: number): WeekDays {
+export function getWeekDayFromNumber(dayNumber: number): WeekDays {
   switch (dayNumber) {
     case 0:
       return WeekDays.Sunday
