@@ -1,9 +1,11 @@
-export enum WeekDays {
-  Monday = 'Lunes',
-  Tuesday = 'Martes',
-  Wednesday = 'Miércoles',
-  Thursday = 'Jueves',
-  Friday = 'Viernes',
-  Saturday = 'Sábado',
-  Sunday = 'Domingo',
+type UUID = `${string}-${string}-${string}-${string}-${string}`
+interface Dish {
+  accepted: boolean
+  weekday: WeekDays | ''
+  dishName: string
+  id: UUID
+  imageUrl: string
+  proposerName: ProposerNames | ''
 }
+
+type EdditableDish = Partial<Pick<Dish, Exclude<keyof Dish, 'id' | 'proposerName'>>>
