@@ -15,9 +15,7 @@ export const _startDishCreation = async ({ repository, store, newDishFormData }:
 
     const { dishName, weekday, imageUrl } = newDishFormData
     const weekdayDate = getDateFromWeeday(weekday)
-    const dishId = crypto.randomUUID() as UUID
     const newDish: NewDish = {
-      id: dishId,
       dishName,
       imageUrl,
       roomId,
@@ -29,7 +27,7 @@ export const _startDishCreation = async ({ repository, store, newDishFormData }:
     const dish = await repository.create(newDish)
     console.log(dish)
     store.setState(() => ({
-      currDish: dishId
+      currDish: dish.id
     }))
   } catch (error) {
     errorLogger(error)

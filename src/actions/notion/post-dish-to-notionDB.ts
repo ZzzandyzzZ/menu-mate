@@ -4,7 +4,6 @@ import { getNotionClient } from './notion-client'
 import type { NewDish } from '@/types'
 
 export const postDishToNotionDB = async ({
-  id,
   dishName,
   imageUrl,
   roomId,
@@ -19,20 +18,9 @@ export const postDishToNotionDB = async ({
       database_id: databaseId
     },
     properties: {
-      id: {
+      dish_name: {
         type: 'title',
         title: [
-          {
-            type: 'text',
-            text: {
-              content: id
-            }
-          }
-        ]
-      },
-      dish_name: {
-        type: 'rich_text',
-        rich_text: [
           {
             type: 'text',
             text: {

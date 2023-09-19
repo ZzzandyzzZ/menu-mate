@@ -1,22 +1,19 @@
+'use server'
 import { getNotionClient } from './notion-client'
 
-import { type UpdatePageParameters } from '@notionhq/client/build/src/api-endpoints'
+import type { UpdatePageParameters } from '@notionhq/client/build/src/api-endpoints'
+import type { EdditableDish } from '@/types/dish'
 
-interface Params {
-  edditableDish: EdditableDish
-  pageId: string
-}
-
-const getQueryFromEditableDish = (pageId: string, edditableDish: EdditableDish) => {
-  const { dishName, imageUrl, accepted, weekday } = edditableDish
+const getQueryFromEditableDish = (edditableDish: EdditableDish) => {
+  const { dishName, imageUrl, accepted, weekday, id } = edditableDish
   const query: UpdatePageParameters = {
-    page_id: pageId
+    page_id: id
   }
   query.properties = {}
   if (dishName != null) {
     query.properties.dish_name = {
-      type: 'rich_text',
-      rich_text: [
+      type: 'title',
+      title: [
         {
           type: 'text',
           text: {
@@ -55,8 +52,8 @@ const getQueryFromEditableDish = (pageId: string, edditableDish: EdditableDish) 
   }
   return query
 }
-export const updateDishInNotionDB = async ({ pageId, edditableDish }: Params) => {
+export const updateDishInNotionDB = async (edditableDish: EdditableDish) => {
   const { notion } = await getNotionClient()
-  const query = getQueryFromEditableDish(pageId, edditableDish)
+  const query = getQueryFromEditableDish(edditableDish)
   return await notion.pages.update(query)
 }
