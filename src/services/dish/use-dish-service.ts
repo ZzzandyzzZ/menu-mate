@@ -1,14 +1,15 @@
-import { useNotionDishRepository } from '@/repositories'
-import { useDishStore } from '@/store'
-import { _startDishesFetching } from './start-dishes-fetching'
 import { _startDishCreation } from './start-dish-creation'
+import { _startDishesFetching } from './start-dishes-fetching'
+import { _startDishUpdate } from './start-dish-update'
+import { getNotionDishRepository } from '@/repositories'
+import { useDishStore } from '@/store'
 
-import type { NewDishFormData } from '@/types'
+import type { EdditableDish, NewDishFormData } from '@/types'
+
+const store = useDishStore
+const repository = getNotionDishRepository()
 
 export const useDishService = () => {
-  const store = useDishStore
-  const repository = useNotionDishRepository()
-
   const startDishesFetching = async () => {
     await _startDishesFetching({ repository, store })
   }
@@ -16,8 +17,13 @@ export const useDishService = () => {
     await _startDishCreation({ repository, store, newDishFormData })
   }
 
+  const startDishUpdate = async (edditableDish: EdditableDish) => {
+    await _startDishUpdate({ repository, store, edditableDish })
+  }
+
   return {
     startDishCreation,
-    startDishesFetching
+    startDishesFetching,
+    startDishUpdate
   }
 }
