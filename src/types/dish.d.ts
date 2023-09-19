@@ -1,4 +1,4 @@
-import { WeekDays } from '.'
+import type { WeekDays } from '.'
 
 export interface Dish {
   id: UUID
@@ -9,9 +9,11 @@ export interface Dish {
   weekday: WeekDays | ''
 }
 
-type EdditableDish = Partial<Pick<Dish, Exclude<keyof Dish, 'id' | 'proposerName'>>>
+export type EdditableDish = Partial<Omit<Dish, 'proposerName'>> & {
+  id: UUID
+}
 
-interface NewDish extends Dish {
+interface NewDish extends Omit<Dish, 'id'> {
   roomId: string
   weekStart: string
   weekday: string

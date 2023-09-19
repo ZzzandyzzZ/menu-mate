@@ -1,3 +1,4 @@
+import type { DishRepository } from '.'
 import type { StoreApi, UseBoundStore } from 'zustand'
 
 export interface DishServiceParams {
