@@ -1,13 +1,20 @@
 import { getDateFromWeeday, getMondayDate, errorLogger } from '@/lib'
 
-import type { DishRepository, DishState, EdditableDish, NewDish, NewDishFormData } from '@/types'
 import type { StoreApi, UseBoundStore } from 'zustand'
+import type {
+  DishRepository,
+  State,
+  EdditableDish,
+  NewDish,
+  NewDishFormData,
+  DishService as IDishService
+} from '@/types'
 
-export class DishService {
+export class DishService implements IDishService {
   private readonly repository: DishRepository
-  private readonly store: UseBoundStore<StoreApi<DishState>>
+  private readonly store: UseBoundStore<StoreApi<State>>
 
-  constructor(repository: DishRepository, store: UseBoundStore<StoreApi<DishState>>) {
+  constructor(repository: DishRepository, store: UseBoundStore<StoreApi<State>>) {
     this.repository = repository
     this.store = store
   }

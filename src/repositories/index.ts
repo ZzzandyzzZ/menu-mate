@@ -1,1 +1,1 @@
-export * from './notion-dish'
+export * from './notion-dish-repository'

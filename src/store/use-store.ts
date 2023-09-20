@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 
-import { type DishState, ProposerNames } from '@/types'
+import { type State, ProposerNames } from '@/types'
 
-export const useDishStore = create<DishState>(() => {
+export const useStore = create<State>(() => {
   return {
     currDish: 0,
     dishes: [],

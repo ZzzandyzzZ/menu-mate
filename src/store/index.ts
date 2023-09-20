@@ -1,1 +1,1 @@
-export * from './use-dish-store'
+export * from './use-store'
