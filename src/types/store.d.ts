@@ -1,13 +1,13 @@
-import { ProposerNames } from '.'
+import type { ProposerNames } from '.'
 
-export interface DishState {
+export interface State {
   dishes: Dish[]
   currDish: number
   roomId: string | null
   proposerName: ProposerNames | null
 }
 
-export interface DishStore {
+export interface Store {
   dishes: Dish[]
   currDish: number
   fetchDishes: () => Promise<void>

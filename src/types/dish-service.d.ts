@@ -1,7 +1,5 @@
-import type { DishRepository } from '.'
-import type { StoreApi, UseBoundStore } from 'zustand'
-
-export interface DishServiceParams {
-  repository: DishRepository
-  store: UseBoundStore<StoreApi<DishState>>
+export interface DishService {
+  startDishCreation: (newDishFormData: NewDishFormData) => Promise<void>
+  startDishUpdate: (edditableDish: EdditableDish) => Promise<void>
+  startDishesFetching: () => Promise<void>
 }
