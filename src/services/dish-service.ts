@@ -1,4 +1,4 @@
-import { getDateFromWeeday, getMondayDate, errorLogger } from '@/lib'
+import { errorLogger, getWeedayStringData } from '@/lib'
 
 import type { StoreApi, UseBoundStore } from 'zustand'
 import type {
@@ -32,15 +32,15 @@ export class DishService implements IDishService {
     const proposerName = this.store.getState().proposerName
     if (roomId == null || proposerName == null) throw Error('Invalid session, login')
     const { dishName, weekday, imageUrl } = newDishFormData
-    const weekdayDate = getDateFromWeeday(weekday)
+    const { weekStartStr, weekdayStr } = getWeedayStringData(weekday)
     const newDish: NewDish = {
       dishName,
       imageUrl,
       roomId,
       accepted: false,
       proposerName,
-      weekday: weekdayDate.toLocaleString('sv'),
-      weekStart: getMondayDate(weekdayDate).toLocaleString('sv')
+      weekday: weekdayStr,
+      weekStart: weekStartStr
     }
 
     await this.handleErrorsAsync(async () => {
@@ -53,6 +53,12 @@ export class DishService implements IDishService {
 
   startDishUpdate = async (edditableDish: EdditableDish) => {
     await this.handleErrorsAsync(async () => {
+      const { weekday } = edditableDish
+      if (weekday != null && weekday !== '') {
+        const { weekStartStr, weekdayStr } = getWeedayStringData(weekday)
+        edditableDish = { ...edditableDish, weekStartStr, weekdayStr }
+      }
+      console.log({ edditableDish })
       const currDish = await this.repository.update(edditableDish)
       this.store.setState(() => ({
         currDish: currDish.id
