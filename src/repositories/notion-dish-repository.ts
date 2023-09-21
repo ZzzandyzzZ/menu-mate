@@ -1,5 +1,5 @@
-import { fetchDishesFromNotionDB, postDishToNotionDB, updateDishInNotionDB } from '@/actions/notion'
 import { getWeekDayFromNumber } from '@/lib'
+import { updateDishInNotionDB, postDishToNotionDB, fetchDishesFromNotionDB } from '@/actions/notion'
 
 import type { UUID } from 'crypto'
 import type {
@@ -12,8 +12,7 @@ import type {
 
 export class NotionDishRepository implements INotionDishRepository {
   create = async (newDish: NewDish) => {
-    const result = await postDishToNotionDB(newDish)
-    return result
+    return await postDishToNotionDB(newDish)
   }
 
   getAll = async () => {
@@ -43,7 +42,6 @@ export class NotionDishRepository implements INotionDishRepository {
   }
 
   update = async (edditableDish: EdditableDish) => {
-    const result = await updateDishInNotionDB(edditableDish)
-    return result
+    return await updateDishInNotionDB(edditableDish)
   }
 }
