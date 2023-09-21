@@ -59,3 +59,11 @@ export const getNumberFromWeekday = (weekday: WeekDays): number => {
       throw new Error('Invalid day number')
   }
 }
+
+export const getWeedayStringData = (weekday: WeekDays) => {
+  const weekdayDate = getDateFromWeeday(weekday)
+  return {
+    weekdayStr: weekdayDate.toLocaleString('sv').split(' ')[0],
+    weekStartStr: getMondayDate(weekdayDate).toLocaleString('sv').split(' ')[0]
+  }
+}
