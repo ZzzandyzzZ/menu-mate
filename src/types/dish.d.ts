@@ -11,6 +11,8 @@ export interface Dish {
 
 export type EdditableDish = Partial<Omit<Dish, 'proposerName'>> & {
   id: UUID
+  weekdayStr?: string
+  weekStartStr?: string
 }
 
 interface NewDish extends Omit<Dish, 'id'> {
