@@ -1,14 +1,9 @@
+import type { UUID } from 'crypto'
 import type { ProposerNames } from '.'
 
-export interface State {
+export interface StoreState {
   dishes: Dish[]
-  currDish: number
+  currDishId: UUID | null
   roomId: string | null
   proposerName: ProposerNames | null
-}
-
-export interface Store {
-  dishes: Dish[]
-  currDish: number
-  fetchDishes: () => Promise<void>
 }

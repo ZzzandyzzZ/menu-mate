@@ -46,7 +46,7 @@ export class DishService implements IDishService {
     await this.handleErrorsAsync(async () => {
       const dish = await this.repository.create(newDish)
       this.store.setState(() => ({
-        currDish: dish.id
+        currDishId: dish.id
       }))
     })
   }
@@ -61,7 +61,7 @@ export class DishService implements IDishService {
       console.log({ edditableDish })
       const currDish = await this.repository.update(edditableDish)
       this.store.setState(() => ({
-        currDish: currDish.id
+        currDishId: currDish.id
       }))
     })
   }

@@ -1,10 +1,10 @@
 import { create } from 'zustand'
 
-import { type State, ProposerNames } from '@/types'
+import { type StoreState, ProposerNames } from '@/types'
 
-export const useStore = create<State>(() => {
+export const useStore = create<StoreState>(() => {
   return {
-    currDish: 0,
+    currDishId: null,
     dishes: [],
     roomId: '1',
     proposerName: ProposerNames.Andy
