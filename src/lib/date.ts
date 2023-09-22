@@ -9,11 +9,9 @@ export function getMondayDate(date: Date) {
 
 export const getDateFromWeeday = (weekday: WeekDays) => {
   const mondayStarts = (new Date().getDay() + 6) % 7
-  console.log({ mondayStarts })
   const diffDays = mondayStarts - getNumberFromWeekday(weekday)
   const dateOffset = 24 * 60 * 60 * 1000 * diffDays
   const myDate = new Date()
-  console.log(dateOffset, myDate, myDate.getTime())
   myDate.setTime(myDate.getTime() - dateOffset)
   return myDate
 }

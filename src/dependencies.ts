@@ -1,4 +1,4 @@
-import { NotionDishRepository } from './repositories/notion-dish-repository'
+import { NotionDishRepository } from './repositories'
 import { DishService } from './services'
 import { useStore } from './store'
 

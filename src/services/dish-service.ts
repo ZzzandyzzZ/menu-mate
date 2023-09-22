@@ -3,7 +3,7 @@ import { errorLogger, getWeedayStringData } from '@/lib'
 import type { StoreApi, UseBoundStore } from 'zustand'
 import type {
   DishRepository,
-  State,
+  StoreState,
   EdditableDish,
   NewDish,
   NewDishFormData,
@@ -12,9 +12,9 @@ import type {
 
 export class DishService implements IDishService {
   private readonly repository: DishRepository
-  private readonly store: UseBoundStore<StoreApi<State>>
+  private readonly store: UseBoundStore<StoreApi<StoreState>>
 
-  constructor(repository: DishRepository, store: UseBoundStore<StoreApi<State>>) {
+  constructor(repository: DishRepository, store: UseBoundStore<StoreApi<StoreState>>) {
     this.repository = repository
     this.store = store
   }
@@ -58,7 +58,6 @@ export class DishService implements IDishService {
         const { weekStartStr, weekdayStr } = getWeedayStringData(weekday)
         edditableDish = { ...edditableDish, weekStartStr, weekdayStr }
       }
-      console.log({ edditableDish })
       const currDish = await this.repository.update(edditableDish)
       this.store.setState(() => ({
         currDishId: currDish.id
