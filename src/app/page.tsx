@@ -1,18 +1,22 @@
 'use client'
 
-import { useDishService } from '@/services/dish/use-dish-service'
-import { useDishStore } from '@/store/use-dish-store'
+import { dishService } from '@/dependencies'
+import { useStore } from '@/store/use-store'
 import { WeekDays } from '@/types'
 import { Typography } from '@mui/material'
 
 export default function Home() {
-  const dishes = useDishStore((state) => state.dishes)
-  const currDish = useDishStore((state) => state.currDish)
-  const { startDishesFetching, startDishCreation } = useDishService()
+  const dishes = useStore((state) => state.dishes)
+  const currDishId = useStore((state) => state.currDishId)
 
+  const { startDishCreation, startDishesFetching, startDishUpdate } = dishService
   const Insertar = async () => {
-    void startDishCreation({ dishName: 'Churrasco', imageUrl: 'asd', weekday: WeekDays.Sunday })
-    console.log({ currDish })
+    void startDishCreation({
+      dishName: 'Churrasco',
+      imageUrl: 'asd',
+      weekday: WeekDays.Monday
+    })
+    console.log({ currDishId })
   }
 
   const Listar = async () => {
@@ -20,12 +24,14 @@ export default function Home() {
     console.log({ dishes })
   }
 
-  const ver = async () => {
-    console.log(dishes)
-    // void updateNotionPage({
-    //   pageId: '05ba4a6d-1315-44ee-aad2-c9a3ed3cdcf8',
-    //   edditableDish: { accepted: false, dishName: 'Andy' }
-    // })
+  const actualizar = async () => {
+    void startDishUpdate({
+      accepted: true,
+      dishName: 'Pollo a la brasa',
+      weekday: WeekDays.Tuesday,
+      id: 'eff75ead-74fb-47b8-8e7c-ec970c09d09b'
+    })
+    console.log('update', { currDishId })
   }
 
   return (
@@ -47,14 +53,14 @@ export default function Home() {
       </button>
       <button
         onClick={() => {
-          void ver()
+          void actualizar()
         }}
       >
-        ver
+        actualizar
       </button>
       {dishes.map((dish) => (
         <div key={dish.id}>
-          {dish.dishName}, {dish.weekday}
+          {dish.dishName}, {dish.weekday}, {dish.id}
         </div>
       ))}
     </main>
