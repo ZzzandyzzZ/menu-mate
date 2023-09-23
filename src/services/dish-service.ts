@@ -1,32 +1,15 @@
-import { errorLogger, getWeedayStringData } from '@/lib'
+import { getWeedayStringData } from '@/lib'
+import { BaseService } from './base-service'
 
-import type { StoreApi, UseBoundStore } from 'zustand'
 import type {
   DishRepository,
-  StoreState,
   EdditableDish,
   NewDish,
   NewDishFormData,
   DishService as IDishService
 } from '@/types'
 
-export class DishService implements IDishService {
-  private readonly repository: DishRepository
-  private readonly store: UseBoundStore<StoreApi<StoreState>>
-
-  constructor(repository: DishRepository, store: UseBoundStore<StoreApi<StoreState>>) {
-    this.repository = repository
-    this.store = store
-  }
-
-  private async handleErrorsAsync<T>(fn: () => Promise<T>) {
-    try {
-      return await fn()
-    } catch (error) {
-      errorLogger(error)
-    }
-  }
-
+export class DishService extends BaseService<DishRepository> implements IDishService {
   startDishCreation = async (newDishFormData: NewDishFormData) => {
     const roomId = this.store.getState().roomId
     const proposerName = this.store.getState().proposerName
