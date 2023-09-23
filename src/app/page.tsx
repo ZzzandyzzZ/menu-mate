@@ -1,4 +1,6 @@
-import { Box, Paper, Typography } from '@mui/material'
+import { Box, Paper } from '@mui/material'
+
+import { SimpleMessage } from '@/components'
 
 export default function Home() {
   return (
@@ -9,16 +11,16 @@ export default function Home() {
       alignItems="center"
       textAlign="center"
       sx={{
-        backgroundImage: 'url("./img/food-background.svg")',
+        backgroundImage: 'url("./img/food-background.png")',
         backgroundPosition: 'center',
         backgroundSize: 'auto 100%'
       }}
     >
       <Paper elevation={5} sx={{ p: 1, m: 1, opacity: 0.9 }}>
-        <Typography variant="h1" fontWeight="bold">
-          Menu Mate
-        </Typography>
-        <Typography variant="h5">Necesitas un link de invitación para poder ingresar.</Typography>
+        <SimpleMessage
+          title="Menu Mate"
+          message="Necesitas un link de invitación para poder ingresar."
+        />
       </Paper>
     </Box>
   )
