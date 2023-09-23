@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { CssBaseline } from '@mui/material'
+import { CssBaseline, Box, Container, Typography } from '@mui/material'
 
 import Providers from '@/providers'
 
@@ -14,13 +14,36 @@ export const metadata: Metadata = {
   description: 'App to organize yours menus'
 }
 
-export default function RootLayout ({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
         <CssBaseline />
         <Providers>
-          {children}
+          <Container
+            sx={{
+              bgcolor: '#91C8E4'
+            }}
+          >
+            <Box
+              component="main"
+              sx={{
+                bgcolor: '#91C8E4',
+                minHeight: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              {children}
+              <Box position="fixed" bottom={0} zIndex={2} bgcolor="gray" left={0} right={0}>
+                <Typography variant="h6" textAlign="center">
+                  Menu Mate
+                </Typography>
+              </Box>
+            </Box>
+          </Container>
         </Providers>
       </body>
     </html>
