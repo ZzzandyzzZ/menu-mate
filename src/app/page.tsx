@@ -1,68 +1,25 @@
-'use client'
-
-import { dishService } from '@/dependencies'
-import { useStore } from '@/store/use-store'
-import { WeekDays } from '@/types'
-import { Typography } from '@mui/material'
+import { Box, Paper, Typography } from '@mui/material'
 
 export default function Home() {
-  const dishes = useStore((state) => state.dishes)
-  const currDishId = useStore((state) => state.currDishId)
-
-  const { startDishCreation, startDishesFetching, startDishUpdate } = dishService
-  const Insertar = async () => {
-    void startDishCreation({
-      dishName: 'Churrasco',
-      imageUrl: 'asd',
-      weekday: WeekDays.Monday
-    })
-    console.log({ currDishId })
-  }
-
-  const Listar = async () => {
-    void startDishesFetching()
-    console.log({ dishes })
-  }
-
-  const actualizar = async () => {
-    void startDishUpdate({
-      accepted: true,
-      dishName: 'Pollo a la brasa',
-      weekday: WeekDays.Tuesday,
-      id: 'eff75ead-74fb-47b8-8e7c-ec970c09d09b'
-    })
-    console.log('update', { currDishId })
-  }
-
   return (
-    <main>
-      <Typography variant="h1">Hello World</Typography>
-      <button
-        onClick={() => {
-          void Insertar()
-        }}
-      >
-        Insertar
-      </button>
-      <button
-        onClick={() => {
-          void Listar()
-        }}
-      >
-        Listar
-      </button>
-      <button
-        onClick={() => {
-          void actualizar()
-        }}
-      >
-        actualizar
-      </button>
-      {dishes.map((dish) => (
-        <div key={dish.id}>
-          {dish.dishName}, {dish.weekday}, {dish.id}
-        </div>
-      ))}
-    </main>
+    <Box
+      minHeight="100vh"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      textAlign="center"
+      sx={{
+        backgroundImage: 'url("./img/food-background.svg")',
+        backgroundPosition: 'center',
+        backgroundSize: 'auto 100%'
+      }}
+    >
+      <Paper elevation={5} sx={{ p: 1, m: 1, opacity: 0.9 }}>
+        <Typography variant="h1" fontWeight="bold">
+          Menu Mate
+        </Typography>
+        <Typography variant="h5">Necesitas un link de invitación para poder ingresar.</Typography>
+      </Paper>
+    </Box>
   )
 }
