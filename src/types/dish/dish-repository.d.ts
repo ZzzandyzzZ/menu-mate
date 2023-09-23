@@ -1,4 +1,4 @@
-import type { EdditableDish } from '.'
+import type { EdditableDish } from '..'
 
 export interface DishRepository {
   getAll: () => Promise<Dish[]>
