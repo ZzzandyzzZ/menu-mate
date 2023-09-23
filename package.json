@@ -9,30 +9,30 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@fontsource/roboto": "^5.0.8",
-    "@mui/icons-material": "^5.14.7",
-    "@mui/material": "^5.14.7",
-    "@notionhq/client": "^2.2.13",
+    "@emotion/react": "11.11.1",
+    "@emotion/styled": "11.11.0",
+    "@fontsource/roboto": "5.0.8",
+    "@mui/icons-material": "5.14.7",
+    "@mui/material": "5.14.10",
+    "@notionhq/client": "2.2.13",
     "next": "13.4.19",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "zustand": "^4.4.1"
+    "zustand": "4.4.1"
   },
   "devDependencies": {
     "@types/node": "20.5.8",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
-    "@typescript-eslint/eslint-plugin": "^6.4.0",
-    "encoding": "^0.1.13",
-    "eslint": "^8.0.1",
+    "@typescript-eslint/eslint-plugin": "6.4.0",
+    "encoding": "0.1.13",
+    "eslint": "8.0.1",
     "eslint-config-next": "13.4.19",
-    "eslint-config-standard-with-typescript": "^39.0.0",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
-    "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-react": "^7.33.2",
+    "eslint-config-standard-with-typescript": "39.0.0",
+    "eslint-plugin-import": "2.25.2",
+    "eslint-plugin-n": "15.0.0 || 16.0.0 ",
+    "eslint-plugin-promise": "6.0.0",
+    "eslint-plugin-react": "7.33.2",
     "typescript": "*"
   }
 }
