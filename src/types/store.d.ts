@@ -6,4 +6,5 @@ export interface StoreState {
   currDishId: UUID | null
   roomId: string | null
   proposerName: ProposerNames | null
+  clear: () => void
 }
