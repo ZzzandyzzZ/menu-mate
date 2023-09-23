@@ -2,11 +2,18 @@ import { create } from 'zustand'
 
 import { type StoreState, ProposerNames } from '@/types'
 
-export const useStore = create<StoreState>(() => {
+const initialState = {
+  currDishId: null,
+  dishes: [],
+  roomId: '1',
+  proposerName: ProposerNames.Andy
+}
+
+export const useStore = create<StoreState>((set) => {
   return {
-    currDishId: null,
-    dishes: [],
-    roomId: '1',
-    proposerName: ProposerNames.Andy
+    ...initialState,
+    clear: () => {
+      set(initialState)
+    }
   }
 })
