@@ -2,15 +2,9 @@ import { getWeekDayFromNumber } from '@/lib'
 import { updateDishInNotionDB, postDishToNotionDB, fetchDishesFromNotionDB } from '@/actions/notion'
 
 import type { UUID } from 'crypto'
-import type {
-  Dish,
-  EdditableDish,
-  NewDish,
-  NotionProperties,
-  NotionDishRepository as INotionDishRepository
-} from '@/types'
+import type { Dish, EdditableDish, NewDish, NotionProperties, DishRepository } from '@/types'
 
-export class NotionDishRepository implements INotionDishRepository {
+export class NotionDishRepository implements DishRepository {
   create = async (newDish: NewDish) => {
     return await postDishToNotionDB(newDish)
   }
