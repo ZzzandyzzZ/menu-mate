@@ -8,10 +8,12 @@ interface Props {
 export function SimpleMessage({ title, message }: Props) {
   return (
     <>
-      <Typography variant="h1" fontWeight="bold">
+      <Typography variant="h1" fontWeight="bold" textAlign="center">
         {title}
       </Typography>
-      <Typography variant="h5">{message}</Typography>
+      <Typography variant="h5" textAlign="center">
+        {message}
+      </Typography>
     </>
   )
 }
