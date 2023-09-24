@@ -1,7 +1,4 @@
-import type { EdditableDish } from '..'
-
 export interface AuthRepository {
-  getAll: () => Promise<Dish[]>
-  update: (dish: EdditableDish) => Promise<Dish>
-  create: (dish: NewDish) => Promise<Dish>
+  getToken: (username: string, password: string) => Promise<string>
+  clearToken: () => Promise<void>
 }
