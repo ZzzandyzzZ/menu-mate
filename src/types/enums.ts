@@ -16,3 +16,5 @@ export enum ProposerNames {
   Geraldo = 'Geraldo',
   Franzua = 'Franzua'
 }
+
+export type KeyProposerNames = keyof typeof ProposerNames

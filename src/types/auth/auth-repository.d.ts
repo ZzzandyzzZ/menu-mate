@@ -1,4 +1,4 @@
 export interface AuthRepository {
-  getToken: (username: string, password: string) => Promise<string>
+  setCookieToken: (username: string, password: string) => Promise<void>
   clearToken: () => Promise<void>
 }
