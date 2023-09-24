@@ -1,38 +1,46 @@
 'use client'
 
 import { useState } from 'react'
-import { redirect, useSearchParams } from 'next/navigation'
+import { redirect, useSearchParams, useRouter } from 'next/navigation'
 import { Box, Button, MenuItem, TextField } from '@mui/material'
 
 import { authService } from '@/dependencies'
 
 import { type FormEvent } from 'react'
-import { ProposerNames } from '@/types'
+import { type KeyProposerNames, ProposerNames } from '@/types'
 
 export const LoginForm = () => {
+  const { push } = useRouter()
   const [proposerName, setProposerName] = useState('')
   const [password, setPassword] = useState('')
-  const searchParams = useSearchParams()
-  const roomId = searchParams.get('room_id')
+  const roomId = useSearchParams().get('room_id')
+
   const { startLogin } = authService
 
   if (roomId == null) {
     redirect('/')
   }
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  // const handleSubmit = useCallback(() => await handleSubmit())
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const enumObject = ProposerNames[proposerName as keyof typeof ProposerNames]
-    startLogin(roomId, enumObject, password)
-      .then(() => {
-        redirect('/app')
-      })
-      .catch(console.error)
+    const enumObject = ProposerNames[proposerName as KeyProposerNames]
+    const { success } = await startLogin(roomId, enumObject, password)
+    if (success) {
+      console.log('Redirecting')
+      push('/app')
+    }
   }
 
   return (
     <>
-      <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+      <Box
+        component="form"
+        onSubmit={(e) => {
+          void handleSubmit(e)
+        }}
+        sx={{ mt: 1 }}
+      >
         <TextField
           label="Nombre de usuario"
           margin="dense"
