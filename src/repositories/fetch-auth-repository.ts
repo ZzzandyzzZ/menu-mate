@@ -1,15 +1,19 @@
 import type { AuthRepository } from '@/types'
 
 export class FetchAuthRepository implements AuthRepository {
-  getToken = async (username: string, password: string) => {
-    console.log('start fetching')
+  setCookieToken = async (username: string, password: string) => {
     const response = await fetch('api/auth/login', {
       method: 'POST',
       body: JSON.stringify({ username, password })
     })
-    const token = await response.json()
-    return token
+    const body = await response.json()
+    if (response.status !== 200) throw Error(body.error)
+    return body
   }
 
-  clearToken = async () => {}
+  clearToken = async () => {
+    const response = await fetch('api/auth/logout')
+    const body = await response.json()
+    if (response.status !== 200) throw Error(body.error)
+  }
 }
