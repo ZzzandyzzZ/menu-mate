@@ -1,7 +1,8 @@
+import { cookies } from 'next/headers'
+import { NextResponse } from 'next/server'
+
 import { COOKIE_JWT_NAME } from '@/constants'
 import { validateJwtToken } from '@/lib'
-import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
 
 export async function GET() {
   const JWT_KEY = process.env.JWT_KEY

@@ -1,9 +1,10 @@
+import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
-import { getJwtToken } from '@/lib'
-import type { KeyProposerNames } from '@/types'
 import { COOKIE_JWT_NAME } from '@/constants'
-import { cookies } from 'next/headers'
+import { getJwtToken } from '@/lib'
+
+import type { KeyProposerNames } from '@/types'
 
 export async function POST(request: Request) {
   const { JWT_KEY, CREDENTIALS } = process.env
