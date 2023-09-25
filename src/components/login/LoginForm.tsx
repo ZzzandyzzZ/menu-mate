@@ -11,7 +11,6 @@ import { type KeyProposerNames, ProposerNames } from '@/types'
 export const LoginForm = () => {
   const { push } = useRouter()
   const [proposerName, setProposerName] = useState('')
-  const [error, setError] = useState(false)
   const [errorMsg, setErrorMsg] = useState<null | string>(null)
   const [password, setPassword] = useState('')
   const roomId = useSearchParams().get('room_id')
@@ -22,7 +21,6 @@ export const LoginForm = () => {
     redirect('/')
   }
 
-  // const handleSubmit = useCallback(() => await handleSubmit())
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const enumObject = ProposerNames[proposerName as KeyProposerNames]
@@ -30,7 +28,6 @@ export const LoginForm = () => {
     if (success) {
       push('/app')
     } else {
-      setError(true)
       setErrorMsg(error)
     }
   }
@@ -48,7 +45,7 @@ export const LoginForm = () => {
           defaultValue=""
           label="Nombre de usuario"
           margin="dense"
-          error={error}
+          error={errorMsg != null}
           helperText={errorMsg}
           value={proposerName}
           onChange={(e) => {
