@@ -9,7 +9,7 @@ export class AuthService extends BaseService<AuthRepository> implements IAuthSer
       return {
         success: false,
         data: null,
-        error: (error as Error).toString()
+        error: (error as Error).message
       }
     }
     this.store.setState({
