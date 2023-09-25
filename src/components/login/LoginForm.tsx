@@ -1,17 +1,18 @@
 'use client'
 
-import { useState } from 'react'
+import { type FormEvent, useState } from 'react'
 import { redirect, useSearchParams, useRouter } from 'next/navigation'
 import { Box, Button, MenuItem, TextField } from '@mui/material'
 
 import { authService } from '@/dependencies'
 
-import { type FormEvent } from 'react'
 import { type KeyProposerNames, ProposerNames } from '@/types'
 
 export const LoginForm = () => {
   const { push } = useRouter()
   const [proposerName, setProposerName] = useState('')
+  const [error, setError] = useState(false)
+  const [errorMsg, setErrorMsg] = useState<null | string>(null)
   const [password, setPassword] = useState('')
   const roomId = useSearchParams().get('room_id')
 
@@ -25,10 +26,12 @@ export const LoginForm = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const enumObject = ProposerNames[proposerName as KeyProposerNames]
-    const { success } = await startLogin(roomId, enumObject, password)
+    const { success, error } = await startLogin(roomId, enumObject, password)
     if (success) {
-      console.log('Redirecting')
       push('/app')
+    } else {
+      setError(true)
+      setErrorMsg(error)
     }
   }
 
@@ -42,13 +45,15 @@ export const LoginForm = () => {
         sx={{ mt: 1 }}
       >
         <TextField
+          defaultValue=""
           label="Nombre de usuario"
           margin="dense"
+          error={error}
+          helperText={errorMsg}
           value={proposerName}
           onChange={(e) => {
             setProposerName(e.target.value)
           }}
-          defaultValue=""
           fullWidth
           required
           select
