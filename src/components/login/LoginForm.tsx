@@ -1,7 +1,7 @@
 'use client'
 
 import { type FormEvent, useState } from 'react'
-import { redirect, useSearchParams, useRouter } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { Box, Button, MenuItem, TextField } from '@mui/material'
 
 import { authService } from '@/dependencies'
@@ -13,18 +13,14 @@ export const LoginForm = () => {
   const [proposerName, setProposerName] = useState('')
   const [errorMsg, setErrorMsg] = useState<null | string>(null)
   const [password, setPassword] = useState('')
-  const roomId = useSearchParams().get('room_id')
+  const roomId = useSearchParams().get('room_id') as string
 
   const { startLogin } = authService
 
-  if (roomId == null) {
-    redirect('/')
-  }
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const enumObject = ProposerNames[proposerName as KeyProposerNames]
-    const { success, error } = await startLogin(roomId, enumObject, password)
+    const enumProposer = ProposerNames[proposerName as KeyProposerNames]
+    const { success, error } = await startLogin(roomId, enumProposer, password)
     if (success) {
       push('/app')
     } else {
