@@ -5,7 +5,7 @@ import type { AuthService as IAuthService, AuthRepository, ProposerNames } from 
 export class AuthService extends BaseService<AuthRepository> implements IAuthService {
   startLogin = async (roomId: string, proposerName: ProposerNames, password: string) => {
     try {
-      await this.repository.setCookieToken(proposerName, password)
+      await this.repository.setCookieToken(proposerName, password, roomId)
     } catch (error) {
       return {
         success: false,
