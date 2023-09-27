@@ -1,1 +1,2 @@
-export * from './notion-dish-repository'
+export * from './fetch-auth-repository'
+export * from './notion-meal-repository'

@@ -1,4 +1,4 @@
-export * from './fetch-dishes-from-notionDB'
+export * from './fetch-meals-from-notionDB'
 export * from './notion-client'
-export * from './post-dish-to-notionDB'
-export * from './update-dish-in-notionDB'
+export * from './post-meal-to-notionDB'
+export * from './update-meal-in-notionDB'

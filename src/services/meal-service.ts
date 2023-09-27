@@ -2,22 +2,22 @@ import { getWeedayStringData } from '@/lib'
 import { BaseService } from './base-service'
 
 import type {
-  DishRepository,
-  EdditableDish,
-  NewDish,
-  NewDishFormData,
-  DishService as IDishService
+  MealRepository,
+  EdditableMeal,
+  NewMeal,
+  NewMealFormData,
+  MealService as IMealService
 } from '@/types'
 
-export class DishService extends BaseService<DishRepository> implements IDishService {
-  startDishCreation = async (newDishFormData: NewDishFormData) => {
+export class MealService extends BaseService<MealRepository> implements IMealService {
+  startMealCreation = async (newMealFormData: NewMealFormData) => {
     const roomId = this.store.getState().roomId
     const proposerName = this.store.getState().proposerName
     if (roomId == null || proposerName == null) throw Error('Invalid session, login')
-    const { dishName, weekday, imageUrl } = newDishFormData
+    const { mealName, weekday, imageUrl } = newMealFormData
     const { weekStartStr, weekdayStr } = getWeedayStringData(weekday)
-    const newDish: NewDish = {
-      dishName,
+    const newMeal: NewMeal = {
+      mealName,
       imageUrl,
       roomId,
       accepted: false,
@@ -27,32 +27,32 @@ export class DishService extends BaseService<DishRepository> implements IDishSer
     }
 
     await this.handleErrorsAsync(async () => {
-      const dish = await this.repository.create(newDish)
+      const meal = await this.repository.create(newMeal)
       this.store.setState(() => ({
-        currDishId: dish.id
+        currMealId: meal.id
       }))
     })
   }
 
-  startDishUpdate = async (edditableDish: EdditableDish) => {
+  startMealUpdate = async (edditableMeal: EdditableMeal) => {
     await this.handleErrorsAsync(async () => {
-      const { weekday } = edditableDish
+      const { weekday } = edditableMeal
       if (weekday != null && weekday !== '') {
         const { weekStartStr, weekdayStr } = getWeedayStringData(weekday)
-        edditableDish = { ...edditableDish, weekStartStr, weekdayStr }
+        edditableMeal = { ...edditableMeal, weekStartStr, weekdayStr }
       }
-      const currDish = await this.repository.update(edditableDish)
+      const currMeal = await this.repository.update(edditableMeal)
       this.store.setState(() => ({
-        currDishId: currDish.id
+        currMealId: currMeal.id
       }))
     })
   }
 
-  startDishesFetching = async () => {
+  startMealesFetching = async () => {
     await this.handleErrorsAsync(async () => {
-      const dishes = await this.repository.getAll()
+      const meals = await this.repository.getAll()
       this.store.setState(() => ({
-        dishes
+        meals
       }))
     })
   }

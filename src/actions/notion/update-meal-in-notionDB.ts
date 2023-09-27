@@ -2,22 +2,22 @@
 import { getNotionClient } from '.'
 
 import type { UpdatePageParameters } from '@notionhq/client/build/src/api-endpoints'
-import type { EdditableDish } from '@/types/dish'
+import type { EdditableMeal } from '@/types/meal'
 
-const getQueryFromEditableDish = (edditableDish: EdditableDish) => {
-  const { dishName, imageUrl, accepted, weekdayStr, weekStartStr, id } = edditableDish
+const getQueryFromEditableMeal = (edditableMeal: EdditableMeal) => {
+  const { mealName, imageUrl, accepted, weekdayStr, weekStartStr, id } = edditableMeal
   const query: UpdatePageParameters = {
     page_id: id
   }
   query.properties = {}
-  if (dishName != null) {
-    query.properties.dish_name = {
+  if (mealName != null) {
+    query.properties.meal_name = {
       type: 'title',
       title: [
         {
           type: 'text',
           text: {
-            content: dishName
+            content: mealName
           }
         }
       ]
@@ -60,8 +60,8 @@ const getQueryFromEditableDish = (edditableDish: EdditableDish) => {
   }
   return query
 }
-export const updateDishInNotionDB = async (edditableDish: EdditableDish) => {
+export const updateMealInNotionDB = async (edditableMeal: EdditableMeal) => {
   const { notion } = await getNotionClient()
-  const query = getQueryFromEditableDish(edditableDish)
+  const query = getQueryFromEditableMeal(edditableMeal)
   return await notion.pages.update(query)
 }

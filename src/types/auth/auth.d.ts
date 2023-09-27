@@ -3,7 +3,7 @@ import type { WeekDays } from '.'
 export interface Auth {
   id: UUID
   accepted: boolean
-  dishName: string
+  mealName: string
   imageUrl: string
   proposerName: ProposerNames | ''
   weekday: WeekDays | ''

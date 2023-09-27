@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
   const availableRooms = process.env.ROOM_IDS
   if (pathname === '/login') {
     if (token != null) {
-      return NextResponse.redirect(new URL('/app', request.url))
+      return NextResponse.redirect(new URL('/meals', request.url))
     }
     if (roomId == null || roomId === '') {
       return NextResponse.redirect(new URL('/?error=NeedRoom', request.url))
@@ -22,7 +22,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/?error=InvalidRoom', request.url))
     }
   }
-  if (pathname.startsWith('/app')) {
+  if (pathname.startsWith('/meals')) {
     if (token == null) {
       return NextResponse.redirect(new URL('/?error=NotLogged', request.url))
     } else {

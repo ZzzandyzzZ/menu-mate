@@ -3,8 +3,8 @@ import { create } from 'zustand'
 import { type StoreState, ProposerNames } from '@/types'
 
 const initialState = {
-  currDishId: null,
-  dishes: [],
+  currMealId: null,
+  meals: [],
   roomId: '1',
   proposerName: ProposerNames.Andy
 }

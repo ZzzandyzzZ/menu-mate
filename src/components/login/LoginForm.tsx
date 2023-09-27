@@ -22,7 +22,7 @@ export const LoginForm = () => {
     const enumProposer = ProposerNames[proposerName as KeyProposerNames]
     const { success, error } = await startLogin(roomId, enumProposer, password)
     if (success) {
-      push('/app')
+      push('/meals')
     } else {
       setErrorMsg(error)
     }

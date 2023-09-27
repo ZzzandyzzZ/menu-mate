@@ -1,28 +1,28 @@
 import type { WeekDays } from '.'
 
-export interface Dish {
+export interface Meal {
   id: UUID
   accepted: boolean
-  dishName: string
+  mealName: string
   imageUrl: string
   proposerName: ProposerNames | ''
   weekday: WeekDays | ''
 }
 
-export type EdditableDish = Partial<Omit<Dish, 'proposerName'>> & {
+export type EdditableMeal = Partial<Omit<Meal, 'proposerName'>> & {
   id: UUID
   weekdayStr?: string
   weekStartStr?: string
 }
 
-interface NewDish extends Omit<Dish, 'id'> {
+interface NewMeal extends Omit<Meal, 'id'> {
   roomId: string
   weekStart: string
   weekday: string
 }
 
-interface NewDishFormData {
-  dishName: string
+interface NewMealFormData {
+  mealName: string
   weekday: WeekDays
   imageUrl: string
 }

@@ -1,12 +1,12 @@
-import { NotionDishRepository } from './repositories'
+import { NotionMealRepository } from './repositories'
 import { FetchAuthRepository } from './repositories/fetch-auth-repository'
-import { DishService } from './services'
+import { MealService } from './services'
 import { AuthService } from './services/auth-service'
 import { useStore } from './store'
 
-const dishRepository = new NotionDishRepository()
+const mealRepository = new NotionMealRepository()
 const store = useStore
-export const dishService = new DishService(dishRepository, store)
+export const mealService = new MealService(mealRepository, store)
 
 const authRepository = new FetchAuthRepository()
 export const authService = new AuthService(authRepository, store)

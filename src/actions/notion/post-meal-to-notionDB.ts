@@ -1,30 +1,30 @@
 'use server'
 import { getNotionClient } from '.'
 
-import type { NewDish } from '@/types'
+import type { NewMeal } from '@/types'
 
-export const postDishToNotionDB = async ({
-  dishName,
+export const postMealToNotionDB = async ({
+  mealName,
   imageUrl,
   roomId,
   accepted,
   weekday,
   weekStart,
   proposerName
-}: NewDish) => {
+}: NewMeal) => {
   const { notion, databaseId } = await getNotionClient()
   return await notion.pages.create({
     parent: {
       database_id: databaseId
     },
     properties: {
-      dish_name: {
+      meal_name: {
         type: 'title',
         title: [
           {
             type: 'text',
             text: {
-              content: dishName
+              content: mealName
             }
           }
         ]

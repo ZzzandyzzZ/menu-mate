@@ -1,37 +1,37 @@
 'use client'
 
-import { dishService } from '@/dependencies'
+import { mealService } from '@/dependencies'
 import { useStore } from '@/store/use-store'
 import { WeekDays } from '@/types'
 import { Typography } from '@mui/material'
 
 export default function Home() {
-  const dishes = useStore((state) => state.dishes)
-  const currDishId = useStore((state) => state.currDishId)
+  const meals = useStore((state) => state.meals)
+  const currMealId = useStore((state) => state.currMealId)
 
-  const { startDishCreation, startDishesFetching, startDishUpdate } = dishService
+  const { startMealCreation, startMealesFetching, startMealUpdate } = mealService
   const Insertar = async () => {
-    void startDishCreation({
-      dishName: 'Churrasco',
+    void startMealCreation({
+      mealName: 'Churrasco',
       imageUrl: 'asd',
       weekday: WeekDays.Monday
     })
-    console.log({ currDishId })
+    console.log({ currMealId })
   }
 
   const Listar = async () => {
-    void startDishesFetching()
-    console.log({ dishes })
+    void startMealesFetching()
+    console.log({ meals })
   }
 
   const actualizar = async () => {
-    void startDishUpdate({
+    void startMealUpdate({
       accepted: true,
-      dishName: 'Pollo a la brasa',
+      mealName: 'Pollo a la brasa',
       weekday: WeekDays.Tuesday,
       id: 'eff75ead-74fb-47b8-8e7c-ec970c09d09b'
     })
-    console.log('update', { currDishId })
+    console.log('update', { currMealId })
   }
 
   return (
@@ -58,9 +58,9 @@ export default function Home() {
       >
         actualizar
       </button>
-      {dishes.map((dish) => (
-        <div key={dish.id}>
-          {dish.dishName}, {dish.weekday}, {dish.id}
+      {meals.map((meal) => (
+        <div key={meal.id}>
+          {meal.mealName}, {meal.weekday}, {meal.id}
         </div>
       ))}
     </main>

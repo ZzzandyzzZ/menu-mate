@@ -2,7 +2,7 @@
 
 import { getNotionClient } from '.'
 
-export const fetchDishesFromNotionDB = async (roomId: string) => {
+export const fetchMealesFromNotionDB = async (roomId: string) => {
   const { notion, databaseId } = await getNotionClient()
   const query = {
     database_id: databaseId,
