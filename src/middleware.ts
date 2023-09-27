@@ -1,8 +1,9 @@
 import { COOKIE_JWT_NAME } from './constants'
+import { validateJwtToken } from './lib'
 
 import { NextResponse, type NextRequest } from 'next/server'
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl
   const token = request.cookies.get(COOKIE_JWT_NAME)
   const roomId = searchParams.get('room_id')
@@ -12,7 +13,7 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/app', request.url))
     }
     if (roomId == null || roomId === '') {
-      return NextResponse.redirect(new URL('/', request.url))
+      return NextResponse.redirect(new URL('/?error=NeedRoom', request.url))
     }
     if (availableRooms == null) {
       return NextResponse.redirect(new URL('/?error=NotAvailableRooms', request.url))
@@ -21,8 +22,16 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/?error=InvalidRoom', request.url))
     }
   }
-  if (pathname.startsWith('/app') && token == null) {
-    return NextResponse.redirect(new URL('/', request.url))
+  if (pathname.startsWith('/app')) {
+    if (token == null) {
+      return NextResponse.redirect(new URL('/?error=NotLogged', request.url))
+    } else {
+      try {
+        await validateJwtToken(token.value, process.env.JWT_KEY as string)
+      } catch (error) {
+        return NextResponse.redirect(new URL('/?error=InvalidToken', request.url))
+      }
+    }
   }
   return NextResponse.next()
 }
