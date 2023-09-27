@@ -1,0 +1,8 @@
+{
+  "exportall.config.folderListener": [
+    "/src/components/ui",
+    "/src/components",
+    "/src/components/meal"
+  ],
+  "exportall.config.relExclusion": ["/src/components"]
+}
