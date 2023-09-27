@@ -1,2 +1,2 @@
-export * from './info-meal-card'
-export * from './meal-card-data'
+export * from './info-meal-card';
+export * from './meal-card-data';
