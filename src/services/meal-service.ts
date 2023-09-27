@@ -48,12 +48,7 @@ export class MealService extends BaseService<MealRepository> implements IMealSer
     })
   }
 
-  startMealesFetching = async () => {
-    await this.handleErrorsAsync(async () => {
-      const meals = await this.repository.getAll()
-      this.store.setState(() => ({
-        meals
-      }))
-    })
+  getMeals = async (roomId: string) => {
+    return await this.repository.getAll(roomId)
   }
 }

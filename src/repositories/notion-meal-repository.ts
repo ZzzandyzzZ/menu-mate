@@ -9,8 +9,8 @@ export class NotionMealRepository implements MealRepository {
     return await postMealToNotionDB(newMeal)
   }
 
-  getAll = async () => {
-    const results = await fetchMealesFromNotionDB('1')
+  getAll = async (roomId: string) => {
+    const results = await fetchMealesFromNotionDB(roomId)
     return results.map((page) => {
       if (!('properties' in page)) throw Error('Not data found in Notion API')
       const { properties } = page
