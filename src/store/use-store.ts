@@ -5,8 +5,8 @@ import { type StoreState, ProposerNames } from '@/types'
 const initialState = {
   currMealId: null,
   meals: [],
-  roomId: '1',
-  proposerName: ProposerNames.Andy
+  roomId: null,
+  proposerName: null
 }
 
 export const useStore = create<StoreState>((set) => {
