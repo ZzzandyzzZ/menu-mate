@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { CssBaseline, Box, Container, Typography } from '@mui/material'
+import { CssBaseline, Box, Container, Toolbar } from '@mui/material'
 
 import Providers from '@/providers'
 
@@ -38,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               }}
             >
               <DrawerAppBar />
+              <Toolbar />
               {children}
             </Box>
           </Container>
