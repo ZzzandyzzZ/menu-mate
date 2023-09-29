@@ -8,6 +8,7 @@ import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
+import { DrawerAppBar } from '@/components'
 
 export const metadata: Metadata = {
   title: 'Menu Mate',
@@ -36,12 +37,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 justifyContent: 'center'
               }}
             >
+              <DrawerAppBar />
               {children}
-              <Box position="fixed" bottom={0} zIndex={2} bgcolor="gray" left={0} right={0}>
-                <Typography variant="h6" textAlign="center">
-                  Menu Mate
-                </Typography>
-              </Box>
             </Box>
           </Container>
         </Providers>
