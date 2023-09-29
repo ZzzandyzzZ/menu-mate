@@ -1,7 +1,7 @@
+import { NextResponse, type NextRequest } from 'next/server'
+
 import { COOKIE_JWT_NAME } from './constants'
 import { validateJwtToken } from './lib'
-
-import { NextResponse, type NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl
@@ -29,7 +29,9 @@ export async function middleware(request: NextRequest) {
       try {
         await validateJwtToken(token.value, process.env.JWT_KEY as string)
       } catch (error) {
-        return NextResponse.redirect(new URL('/?error=InvalidToken', request.url))
+        const response = NextResponse.redirect(new URL('/?error=InvalidToken', request.url))
+        response.cookies.delete(COOKIE_JWT_NAME)
+        return response
       }
     }
   }
