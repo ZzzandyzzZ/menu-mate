@@ -4,5 +4,8 @@
     "/src/components",
     "/src/components/meal"
   ],
-  "exportall.config.relExclusion": ["/src/components"]
+  "exportall.config.relExclusion": ["/src/components"],
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  }
 }
