@@ -1,8 +1,6 @@
-import { Box, Stack, Typography } from '@mui/material'
-import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone'
-import RemoveRedEyeTwoToneIcon from '@mui/icons-material/RemoveRedEyeTwoTone'
+import { Stack } from '@mui/material'
 
-import { EditMealCard, PageTitle, RedirectButton } from '@/components'
+import { EditMealCard, PageTitle } from '@/components'
 import { useMeals } from '@/hooks/useMeals'
 
 export default async function ProposalsPage() {
