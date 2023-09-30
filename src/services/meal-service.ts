@@ -48,7 +48,20 @@ export class MealService extends BaseService<MealRepository> implements IMealSer
     })
   }
 
+  updateMeal = async (edditableMeal: EdditableMeal) => {
+    const { weekday } = edditableMeal
+    if (weekday != null && weekday !== '') {
+      const { weekStartStr, weekdayStr } = getWeedayStringData(weekday)
+      edditableMeal = { ...edditableMeal, weekStartStr, weekdayStr }
+    }
+    return await this.repository.update(edditableMeal)
+  }
+
   getMeals = async (roomId: string) => {
     return await this.repository.getAll(roomId)
+  }
+
+  getMealById = async (mealId: string, roomId: string) => {
+    return await this.repository.getById(mealId, roomId)
   }
 }
