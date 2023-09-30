@@ -3,9 +3,8 @@
 import { mealService } from '@/dependencies'
 import { useStore } from '@/store'
 import { Button } from '@mui/material'
-import { useEffect } from 'react'
 
-export function ClientTest({ data }) {
+export function ClientTest() {
   const state = useStore()
   const { getMeals } = mealService
   const handleClick = () => {
@@ -14,7 +13,6 @@ export function ClientTest({ data }) {
       //   console.log({ meals })
     }
     void _getMeals()
-    console.log({ data })
   }
 
   return (
