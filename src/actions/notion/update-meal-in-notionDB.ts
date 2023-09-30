@@ -1,4 +1,6 @@
 'use server'
+import { revalidatePath } from 'next/cache'
+
 import { getNotionClient } from '.'
 
 import type { UpdatePageParameters } from '@notionhq/client/build/src/api-endpoints'
@@ -63,5 +65,7 @@ const getQueryFromEditableMeal = (edditableMeal: EdditableMeal) => {
 export const updateMealInNotionDB = async (edditableMeal: EdditableMeal) => {
   const { notion } = await getNotionClient()
   const query = getQueryFromEditableMeal(edditableMeal)
-  return await notion.pages.update(query)
+  const response = await notion.pages.update(query)
+  revalidatePath('/meals/proposals')
+  return response
 }
