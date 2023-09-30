@@ -1,12 +1,11 @@
 'use client'
 
-import { mealService } from '@/dependencies'
 import { useStore } from '@/store'
 import { Button } from '@mui/material'
 
 export function ClientTest() {
   const state = useStore()
-  const { getMeals } = mealService
+  // const { getMeals } = mealService
   const handleClick = () => {
     const _getMeals = async () => {
       //   const meals = await getMeals('982191')

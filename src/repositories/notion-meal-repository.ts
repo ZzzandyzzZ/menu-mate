@@ -1,23 +1,18 @@
+import { fetchMealesFromNotionDB, postMealToNotionDB, updateMealInNotionDB } from '@/actions/notion'
 import { getWeekDayFromNumber } from '@/lib'
-import { updateMealInNotionDB, postMealToNotionDB, fetchMealesFromNotionDB } from '@/actions/notion'
 
-import type { UUID } from 'crypto'
 import type {
-  DatabaseObjectResponse,
-  PageObjectResponse,
-  PartialDatabaseObjectResponse,
-  PartialPageObjectResponse
-} from '@notionhq/client/build/src/api-endpoints'
-import type { Meal, EdditableMeal, NewMeal, NotionProperties, MealRepository } from '@/types'
+  EdditableMeal,
+  Meal,
+  MealRepository,
+  NewMeal,
+  NotionPage,
+  NotionProperties
+} from '@/types'
+import type { UUID } from 'crypto'
 
 export class NotionMealRepository implements MealRepository {
-  private mapNotionPageToMeal = (
-    page:
-      | PageObjectResponse
-      | PartialPageObjectResponse
-      | PartialDatabaseObjectResponse
-      | DatabaseObjectResponse
-  ) => {
+  private readonly mapNotionPageToMeal = (page: NotionPage) => {
     if (!('properties' in page)) throw Error('Not data found in Notion API')
     const { properties } = page
     const id = page.id as UUID
@@ -55,7 +50,7 @@ export class NotionMealRepository implements MealRepository {
 
   getById = async (mealId: string, roomId: string) => {
     const results = await fetchMealesFromNotionDB(roomId)
-    const page = results.find((res) => res.id == mealId)
+    const page = results.find((res) => res.id === mealId)
     return page == null ? null : this.mapNotionPageToMeal(page)
   }
 }

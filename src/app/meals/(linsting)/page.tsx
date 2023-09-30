@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Stack } from '@mui/material'
 
 import { InfoMealCard, PageTitle } from '@/components'
 import { useMeals } from '@/hooks/useMeals'

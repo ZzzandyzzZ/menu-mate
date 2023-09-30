@@ -1,9 +1,9 @@
 'use client'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone'
 import LockTwoTone from '@mui/icons-material/LockTwoTone'
 import { Card, CardActionArea, CircularProgress, Grid, IconButton } from '@mui/material'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 import { mealService } from '@/dependencies'
 import { MealCardData } from '.'
@@ -28,7 +28,9 @@ export function EditMealCard({ weekday, proposerName, mealName, id, accepted }: 
         setIsAccepted(!isAccepted)
       })
       .catch(console.log)
-      .finally(() => setLoading(false))
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   const EditMealButton = () => {
@@ -50,7 +52,7 @@ export function EditMealCard({ weekday, proposerName, mealName, id, accepted }: 
     <Card elevation={5} sx={{ p: 1, bgcolor: isAccepted ? '#C6E5B1' : '#f9c1be' }}>
       <Grid container justifyContent="center" alignItems="center">
         <Grid item xs={9} textAlign="left">
-          <CardActionArea onClick={onMealCardClick} disabled={isAccepted || loading === true}>
+          <CardActionArea onClick={onMealCardClick} disabled={isAccepted || loading}>
             <MealCardData weekday={weekday} proposerName={proposerName} mealName={mealName} />
           </CardActionArea>
         </Grid>

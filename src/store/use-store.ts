@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import { type StoreState, ProposerNames } from '@/types'
+import { type StoreState } from '@/types'
 
 const initialState = {
   currMealId: null,
