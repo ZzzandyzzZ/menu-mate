@@ -1,10 +1,9 @@
 'use server'
-import { revalidatePath } from 'next/cache'
 
 import { getNotionClient } from '.'
 
-import type { UpdatePageParameters } from '@notionhq/client/build/src/api-endpoints'
 import type { EdditableMeal } from '@/types/meal'
+import type { UpdatePageParameters } from '@notionhq/client/build/src/api-endpoints'
 
 const getQueryFromEditableMeal = (edditableMeal: EdditableMeal) => {
   const { mealName, imageUrl, accepted, weekdayStr, weekStartStr, id } = edditableMeal
@@ -66,6 +65,5 @@ export const updateMealInNotionDB = async (edditableMeal: EdditableMeal) => {
   const { notion } = await getNotionClient()
   const query = getQueryFromEditableMeal(edditableMeal)
   const response = await notion.pages.update(query)
-  revalidatePath('/meals/proposals')
   return response
 }
