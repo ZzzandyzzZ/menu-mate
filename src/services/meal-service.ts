@@ -2,11 +2,11 @@ import { getWeedayStringData } from '@/lib'
 import { BaseService } from './base-service'
 
 import type {
-  MealRepository,
   EdditableMeal,
+  MealService as IMealService,
+  MealRepository,
   NewMeal,
-  NewMealFormData,
-  MealService as IMealService
+  NewMealFormData
 } from '@/types'
 
 export class MealService extends BaseService<MealRepository> implements IMealService {
@@ -32,6 +32,21 @@ export class MealService extends BaseService<MealRepository> implements IMealSer
         currMealId: meal.id
       }))
     })
+  }
+
+  createMeal = async (newMealFormData: NewMealFormData, roomId: string, proposerName: string) => {
+    const { mealName, weekday, imageUrl } = newMealFormData
+    const { weekStartStr, weekdayStr } = getWeedayStringData(weekday)
+    const newMeal: NewMeal = {
+      mealName,
+      imageUrl,
+      roomId,
+      accepted: false,
+      proposerName,
+      weekday: weekdayStr,
+      weekStart: weekStartStr
+    }
+    return await this.repository.create(newMeal)
   }
 
   startMealUpdate = async (edditableMeal: EdditableMeal) => {
