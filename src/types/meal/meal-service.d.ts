@@ -1,8 +1,12 @@
-import type { Meal } from '.'
+import type {
+  CreatePageResponse,
+  UpdatePageResponse
+} from '@notionhq/client/build/src/api-endpoints'
+import type { EdditableMeal, Meal, NewMealFormData } from '.'
 
 export interface MealService {
-  getMealById: (mealId: string) => Promise<Meal>
+  getMealById: (mealId: string) => Promise<Meal | null>
   getMeals: () => Promise<Meal[]>
-  startMealCreation: (newMealFormData: NewMealFormData) => Promise<void>
-  startMealUpdate: (edditableMeal: EdditableMeal) => Promise<void>
+  updateMeal: (edditableMeal: EdditableMeal) => Promise<UpdatePageResponse>
+  createMeal: (newMealFormData: NewMealFormData) => Promise<CreatePageResponse>
 }
