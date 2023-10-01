@@ -11,16 +11,20 @@ import {
   ImageListItem,
   InputAdornment,
   MenuItem,
-  TextField
+  TextField,
+  Typography
 } from '@mui/material'
 
-import { WeekDays } from '@/types'
+import { mealService } from '@/dependencies'
+import { ProposerNames, WeekDays } from '@/types'
 import { useState } from 'react'
 
 interface Props {
   buttonText: string
+  roomId: string
+  proposerName: ProposerNames
   currMealName?: string
-  currWeekdate?: WeekDays | ''
+  currWeekday?: WeekDays | ''
 }
 
 const handleSearchClick = async (): Promise<void> => {
@@ -32,33 +36,45 @@ const handleSearchClick = async (): Promise<void> => {
   }
 }
 
+const imageUrl = 'https://www.deliciosi.com/images/2200/2235/arroz-verde-peruano-665.webp'
+
 const dishImages = [
-  { img: 'https://www.deliciosi.com/images/2200/2235/arroz-verde-peruano-665.webp', title: 'test' }
+  // { img: 'https://www.deliciosi.com/images/2200/2235/arroz-verde-peruano-665.webp', title: 'test' }
 ]
 
-export const MealForm = ({ buttonText, currMealName = '', currWeekdate = '' }: Props) => {
+export const MealForm = ({
+  buttonText,
+  roomId,
+  proposerName,
+  currMealName = '',
+  currWeekday = ''
+}: Props) => {
   const [mealName, setMealName] = useState(currMealName)
-  const [weekdate, setWeekdate] = useState(currWeekdate)
+  const [weekday, setWeekday] = useState(currWeekday)
+  const { createMeal } = mealService
   const router = useRouter()
-  const handleClick = (): void => {
-    router.push('/meals/proposals')
-    // if (type === 'add') {
-    //   // addDishToList({
-    //   //   id: crypto.randomUUID() as UUID,
-    //   //   dishName,
-    //   //   weekday,
-    //   //   imageUrl: '',
-    //   //   accepted: false,
-    //   //   proposerName
-    //   // })
-    //   router.push('/proposals')
-    // } else {
-    //   // updateDishOnList({ id, dish: { dishName, weekday } })
-    //   router.push('/proposals')
-    // }
+
+  const CustomImageList = () => {
+    return (
+      <ImageList cols={2}>
+        {dishImages.slice(0, 6).map(({ img, title }) => (
+          <ImageListItem key={img} sx={{ bgcolor: '#F6F4EB' }}>
+            <img src={img} alt={title} />
+          </ImageListItem>
+        ))}
+      </ImageList>
+    )
   }
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    createMeal({ imageUrl, mealName, weekday }, roomId, proposerName).then(() => {
+      router.push('/meals/proposals')
+    })
+  }
+
   return (
-    <Box component="form">
+    <Box component="form" onSubmit={onSubmit}>
       <TextField
         fullWidth
         label="Nombre del plato"
@@ -88,9 +104,9 @@ export const MealForm = ({ buttonText, currMealName = '', currWeekdate = '' }: P
         defaultValue=""
         label="Dia de la semana"
         size="small"
-        value={weekdate}
+        value={weekday}
         onChange={(e) => {
-          setWeekdate(e.target.value as WeekDays)
+          setWeekday(e.target.value as WeekDays)
         }}
       >
         {Object.values(WeekDays).map((option) => {
@@ -101,14 +117,14 @@ export const MealForm = ({ buttonText, currMealName = '', currWeekdate = '' }: P
           )
         })}
       </TextField>
-      <ImageList cols={2}>
-        {dishImages.slice(0, 6).map(({ img, title }) => (
-          <ImageListItem key={img} sx={{ bgcolor: '#F6F4EB' }}>
-            <img src={img} alt={title} />
-          </ImageListItem>
-        ))}
-      </ImageList>
-      <Button fullWidth variant="outlined" sx={{ mb: 3 }} onClick={handleClick}>
+      {dishImages.length === 0 ? (
+        <Typography textAlign="center" py={3}>
+          Sin resultados de imagenes
+        </Typography>
+      ) : (
+        <CustomImageList />
+      )}
+      <Button fullWidth variant="outlined" sx={{ mb: 3 }} type="submit">
         {buttonText}
       </Button>
     </Box>
