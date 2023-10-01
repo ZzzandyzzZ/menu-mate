@@ -13,13 +13,15 @@ import {
   Typography
 } from '@mui/material'
 import { useRouter } from 'next/navigation'
+import { useState, type FormEvent } from 'react'
 
 import { mealService } from '@/dependencies'
 
 import { WeekDays } from '@/types'
-import { useState, type FormEvent } from 'react'
+import type { UUID } from 'crypto'
 
 interface Props {
+  mealId?: UUID
   buttonText: string
   currMealName?: string
   currWeekday?: WeekDays | ''
@@ -40,10 +42,10 @@ const dishImages = [
   { img: 'https://www.deliciosi.com/images/2200/2235/arroz-verde-peruano-665.webp', title: 'test' }
 ]
 
-export const MealForm = ({ buttonText, currMealName = '', currWeekday = '' }: Props) => {
+export const MealForm = ({ mealId, buttonText, currMealName = '', currWeekday = '' }: Props) => {
   const [mealName, setMealName] = useState(currMealName)
   const [weekday, setWeekday] = useState(currWeekday)
-  const { createMeal } = mealService
+  const { createMeal, updateMeal } = mealService
   const router = useRouter()
 
   const CustomImageList = () => {
@@ -60,9 +62,11 @@ export const MealForm = ({ buttonText, currMealName = '', currWeekday = '' }: Pr
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    createMeal({ imageUrl, mealName, weekday })
+    const handler = currMealName !== '' ? updateMeal : createMeal
+    handler({ imageUrl, mealName, weekday, id: mealId })
       .then(() => {
         router.push('/meals/proposals')
+        router.refresh()
       })
       .catch(console.log)
   }
