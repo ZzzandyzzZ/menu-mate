@@ -23,14 +23,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Container disableGutters>
             <Box
               component="main"
-              sx={{
-                alignItems: 'center',
-                bgcolor: '#91C8E4',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                minHeight: '100vh'
-              }}
+              px={2}
+              width="100%"
+              alignItems="center"
+              bgcolor="#91C8E4"
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              minHeight="100vh"
             >
               {children}
             </Box>
