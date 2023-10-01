@@ -1,14 +1,13 @@
-import type { Metadata } from 'next'
-
-import { CssBaseline, Box, Container, Toolbar } from '@mui/material'
+import { Box, Container, CssBaseline } from '@mui/material'
 
 import Providers from '@/providers'
+
+import type { Metadata } from 'next'
 
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
-import { DrawerAppBar } from '@/components'
 
 export const metadata: Metadata = {
   title: 'Menu Mate',
@@ -21,24 +20,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <CssBaseline />
         <Providers>
-          <Container
-            sx={{
-              bgcolor: '#91C8E4'
-            }}
-          >
+          <Container disableGutters>
             <Box
               component="main"
               sx={{
+                alignItems: 'center',
                 bgcolor: '#91C8E4',
-                minHeight: '100vh',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                minHeight: '100vh'
               }}
             >
-              <DrawerAppBar />
-              <Toolbar />
               {children}
             </Box>
           </Container>
