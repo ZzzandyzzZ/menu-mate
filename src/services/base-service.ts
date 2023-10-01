@@ -1,13 +1,12 @@
 import { errorLogger } from '@/lib'
 
-import type { StoreApi, UseBoundStore } from 'zustand'
-import type { StoreState } from '@/types'
+import type { StoreInstance } from '@/types'
 
 export class BaseService<T> {
   protected readonly repository: T
-  protected readonly store: UseBoundStore<StoreApi<StoreState>>
+  protected readonly store: StoreInstance
 
-  constructor(repository: T, store: UseBoundStore<StoreApi<StoreState>>) {
+  constructor(repository: T, store: StoreInstance) {
     this.repository = repository
     this.store = store
   }
