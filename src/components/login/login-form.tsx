@@ -1,12 +1,13 @@
 'use client'
 
-import { type FormEvent, useState } from 'react'
-import { useSearchParams, useRouter } from 'next/navigation'
 import { Box, Button, MenuItem, TextField } from '@mui/material'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useState, type FormEvent } from 'react'
 
 import { authService } from '@/dependencies'
 
-import { type KeyProposerNames, ProposerNames } from '@/types'
+import { ProposerNames, type KeyProposerNames } from '@/types'
+import { LoginPasswordField } from './login-password-field'
 
 export const LoginForm = () => {
   const { push } = useRouter()
@@ -14,7 +15,6 @@ export const LoginForm = () => {
   const [errorMsg, setErrorMsg] = useState<null | string>(null)
   const [password, setPassword] = useState('')
   const roomId = useSearchParams().get('room_id') as string
-
   const { startLogin } = authService
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -57,17 +57,7 @@ export const LoginForm = () => {
             </MenuItem>
           ))}
         </TextField>
-        <TextField
-          label="Contraseña"
-          margin="dense"
-          type="password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value)
-          }}
-          fullWidth
-          required
-        />
+        <LoginPasswordField password={password} setPassword={setPassword} />
         <Button type="submit" fullWidth variant="outlined" sx={{ my: 2 }} color="info">
           Ingresar
         </Button>
