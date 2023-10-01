@@ -1,6 +1,4 @@
 'use client'
-import { useState } from 'react'
-import Link from 'next/link'
 import MenuIcon from '@mui/icons-material/Menu'
 import {
   AppBar,
@@ -12,16 +10,19 @@ import {
   List,
   ListItem,
   ListItemButton,
+  Link as MuiLink,
   Toolbar,
-  Typography,
-  Link as MuiLink
+  Typography
 } from '@mui/material'
+import Link from 'next/link'
+import { useState } from 'react'
 
 const drawerWidth = 240
 const mainTitle = 'Menu Mate'
 const navItems = [
   { href: '/meals', showText: 'Inicio' },
-  { href: '/meals/proposals', showText: 'Propuestas' }
+  { href: '/meals/proposals', showText: 'Propuestas' },
+  { href: '/meals/new', showText: 'Agregar Comida' }
   //   { href: '/meals/history', showText: 'Historial' }
 ]
 
