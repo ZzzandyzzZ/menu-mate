@@ -6,37 +6,37 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 import { mealService } from '@/dependencies'
+import { useSafeService } from '@/hooks'
 import { MealCardData } from '.'
 
-import type { Meal } from '@/types'
+import type { EdditableMeal, Meal } from '@/types'
 
 export function EditMealCard({ weekday, proposerName, mealName, id, accepted }: Meal) {
   const router = useRouter()
-  const [loading, setLoading] = useState(false)
   const [isAccepted, setIsAccepted] = useState(accepted)
-  const { updateMeal } = mealService
+  const edditableMeal = {
+    id,
+    accepted: !isAccepted
+  }
+  const { loading, runner } = useSafeService<EdditableMeal>(
+    mealService.updateMeal,
+    edditableMeal,
+    () => {
+      setIsAccepted(!isAccepted)
+    }
+  )
 
   const onMealCardClick = (): void => {
     if (isAccepted) return
     router.push('/meals/edit/' + id)
   }
 
-  const onUpdateMealClick = () => {
-    setLoading(true)
-    updateMeal({ id, accepted: !isAccepted })
-      .then(() => {
-        setIsAccepted(!isAccepted)
-      })
-      .catch(console.log)
-      .finally(() => {
-        setLoading(false)
-      })
-  }
-
   const EditMealButton = () => {
     return (
       <IconButton
-        onClick={onUpdateMealClick}
+        onClick={() => {
+          void runner()
+        }}
         sx={{ fontSize: '22px', bgcolor: 'rgba(255, 255, 255, 0.45)' }}
       >
         {isAccepted ? (
