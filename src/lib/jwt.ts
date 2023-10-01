@@ -1,5 +1,6 @@
 import { SignJWT, jwtVerify } from 'jose'
 
+import { JwtData } from '@/types'
 import type { JWTPayload } from 'jose'
 
 export const getJwtToken = async (data: JWTPayload, secret: string) => {
@@ -23,8 +24,9 @@ export const getJwtData = async (jwt: string | undefined, secret: string | undef
   }
   try {
     const data = await validateJwtToken(jwt, secret)
-    return data.payload
+    const payload: unknown = data.payload
+    return payload as JwtData
   } catch (error) {
-    return null
+    throw Error('Invalid jwt token')
   }
 }
