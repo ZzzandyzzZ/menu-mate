@@ -1,7 +1,5 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-
 import SearchIcon from '@mui/icons-material/Search'
 import {
   Box,
@@ -14,15 +12,15 @@ import {
   TextField,
   Typography
 } from '@mui/material'
+import { useRouter } from 'next/navigation'
 
 import { mealService } from '@/dependencies'
-import { ProposerNames, WeekDays } from '@/types'
-import { useState } from 'react'
+
+import { WeekDays } from '@/types'
+import { useState, type FormEvent } from 'react'
 
 interface Props {
   buttonText: string
-  roomId: string
-  proposerName: ProposerNames
   currMealName?: string
   currWeekday?: WeekDays | ''
 }
@@ -39,16 +37,10 @@ const handleSearchClick = async (): Promise<void> => {
 const imageUrl = 'https://www.deliciosi.com/images/2200/2235/arroz-verde-peruano-665.webp'
 
 const dishImages = [
-  // { img: 'https://www.deliciosi.com/images/2200/2235/arroz-verde-peruano-665.webp', title: 'test' }
+  { img: 'https://www.deliciosi.com/images/2200/2235/arroz-verde-peruano-665.webp', title: 'test' }
 ]
 
-export const MealForm = ({
-  buttonText,
-  roomId,
-  proposerName,
-  currMealName = '',
-  currWeekday = ''
-}: Props) => {
+export const MealForm = ({ buttonText, currMealName = '', currWeekday = '' }: Props) => {
   const [mealName, setMealName] = useState(currMealName)
   const [weekday, setWeekday] = useState(currWeekday)
   const { createMeal } = mealService
@@ -66,15 +58,15 @@ export const MealForm = ({
     )
   }
 
-  const onSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    createMeal({ imageUrl, mealName, weekday }, roomId, proposerName).then(() => {
+    createMeal({ imageUrl, mealName, weekday }).then(() => {
       router.push('/meals/proposals')
     })
   }
 
   return (
-    <Box component="form" onSubmit={onSubmit}>
+    <Box component="form" onSubmit={handleSubmit}>
       <TextField
         fullWidth
         label="Nombre del plato"

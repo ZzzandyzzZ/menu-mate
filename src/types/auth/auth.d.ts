@@ -1,4 +1,5 @@
 import type { WeekDays } from '.'
+import { ProposerNames } from '..'
 
 export interface Auth {
   id: UUID
@@ -7,4 +8,10 @@ export interface Auth {
   imageUrl: string
   proposerName: ProposerNames | ''
   weekday: WeekDays | ''
+}
+
+export interface JwtData {
+  proposerName: ProposerNames
+  roomId: string
+  role?: string
 }

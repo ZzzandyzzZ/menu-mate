@@ -34,9 +34,11 @@ export class MealService extends BaseService<MealRepository> implements IMealSer
     })
   }
 
-  createMeal = async (newMealFormData: NewMealFormData, roomId: string, proposerName: string) => {
+  createMeal = async (newMealFormData: NewMealFormData) => {
     const { mealName, weekday, imageUrl } = newMealFormData
     const { weekStartStr, weekdayStr } = getWeedayStringData(weekday)
+    const { roomId, proposerName } = this.store.getState()
+    if (roomId == null || proposerName == null) throw Error('Invalid session, login')
     const newMeal: NewMeal = {
       mealName,
       imageUrl,
@@ -72,11 +74,15 @@ export class MealService extends BaseService<MealRepository> implements IMealSer
     return await this.repository.update(edditableMeal)
   }
 
-  getMeals = async (roomId: string) => {
+  getMeals = async () => {
+    const { roomId } = this.store.getState()
+    if (roomId == null) throw Error('Invalid session, login')
     return await this.repository.getAll(roomId)
   }
 
-  getMealById = async (mealId: string, roomId: string) => {
+  getMealById = async (mealId: string) => {
+    const { roomId } = this.store.getState()
+    if (roomId == null) throw Error('Invalid session, login')
     return await this.repository.getById(mealId, roomId)
   }
 }
