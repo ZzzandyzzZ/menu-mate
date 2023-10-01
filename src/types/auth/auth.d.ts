@@ -1,5 +1,5 @@
 import type { WeekDays } from '.'
-import { ProposerNames } from '..'
+import type { ProposerNames } from '..'
 
 export interface Auth {
   id: UUID

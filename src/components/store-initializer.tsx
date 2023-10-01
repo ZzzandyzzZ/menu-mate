@@ -3,7 +3,7 @@
 import { useStore } from '@/store'
 import { useRef } from 'react'
 
-import { JwtData } from '@/types'
+import type { JwtData } from '@/types'
 
 export const StoreInitializer = ({ proposerName, roomId }: JwtData) => {
   const initialized = useRef(false)

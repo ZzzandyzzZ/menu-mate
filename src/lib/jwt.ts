@@ -1,6 +1,6 @@
 import { SignJWT, jwtVerify } from 'jose'
 
-import { JwtData } from '@/types'
+import type { JwtData } from '@/types'
 import type { JWTPayload } from 'jose'
 
 export const getJwtToken = async (data: JWTPayload, secret: string) => {

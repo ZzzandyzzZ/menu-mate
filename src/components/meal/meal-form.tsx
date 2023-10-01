@@ -60,9 +60,11 @@ export const MealForm = ({ buttonText, currMealName = '', currWeekday = '' }: Pr
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    createMeal({ imageUrl, mealName, weekday }).then(() => {
-      router.push('/meals/proposals')
-    })
+    createMeal({ imageUrl, mealName, weekday })
+      .then(() => {
+        router.push('/meals/proposals')
+      })
+      .catch(console.log)
   }
 
   return (
