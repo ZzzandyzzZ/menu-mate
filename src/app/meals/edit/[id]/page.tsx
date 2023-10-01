@@ -1,6 +1,5 @@
 import { MealForm, PageTitle } from '@/components'
 import { mealService } from '@/dependencies'
-import { useJwtData } from '@/hooks'
 
 interface Props {
   params: {
@@ -12,8 +11,7 @@ interface Props {
 }
 
 export default async function EditMealPage({ params }: Props) {
-  const jwtData = await useJwtData()
-  const meal = await mealService.getMealById(params.id, jwtData?.roomId as string)
+  const meal = await mealService.getMealById(params.id)
   return (
     <>
       <PageTitle title="Editar Plato" />

@@ -1,10 +1,10 @@
 import { Stack } from '@mui/material'
 
 import { EditMealCard, PageTitle } from '@/components'
-import { useMeals } from '@/hooks/useMeals'
+import { mealService } from '@/dependencies'
 
 export default async function ProposalsPage() {
-  const meals = await useMeals()
+  const meals = await mealService.getMeals()
   return (
     <>
       <PageTitle title="Propuestas" />
