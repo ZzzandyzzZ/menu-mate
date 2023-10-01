@@ -1,17 +1,6 @@
 'use client'
 
-import SearchIcon from '@mui/icons-material/Search'
-import {
-  Box,
-  Button,
-  IconButton,
-  ImageList,
-  ImageListItem,
-  InputAdornment,
-  MenuItem,
-  TextField,
-  Typography
-} from '@mui/material'
+import { Box, Button, MenuItem, TextField, Typography } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import { useState, type FormEvent } from 'react'
 
@@ -19,21 +8,14 @@ import { mealService } from '@/dependencies'
 
 import { WeekDays } from '@/types'
 import type { UUID } from 'crypto'
+import { CustomImageList } from './custom-image-list'
+import { InputSearchField } from './input-search-field'
 
 interface Props {
   mealId?: UUID
   buttonText: string
   currMealName?: string
   currWeekday?: WeekDays | ''
-}
-
-const handleSearchClick = async (): Promise<void> => {
-  try {
-    // const images = await fetchSerpapiImages(dishName)
-    // setDishImages(images)
-  } catch (error) {
-    console.error(error)
-  }
 }
 
 const imageUrl = 'https://www.deliciosi.com/images/2200/2235/arroz-verde-peruano-665.webp'
@@ -48,18 +30,6 @@ export const MealForm = ({ mealId, buttonText, currMealName = '', currWeekday = 
   const { createMeal, updateMeal } = mealService
   const router = useRouter()
 
-  const CustomImageList = () => {
-    return (
-      <ImageList cols={2}>
-        {dishImages.slice(0, 6).map(({ img, title }) => (
-          <ImageListItem key={img} sx={{ bgcolor: '#F6F4EB' }}>
-            <img src={img} alt={title} />
-          </ImageListItem>
-        ))}
-      </ImageList>
-    )
-  }
-
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const handler = currMealName !== '' ? updateMeal : createMeal
@@ -73,29 +43,7 @@ export const MealForm = ({ mealId, buttonText, currMealName = '', currWeekday = 
 
   return (
     <Box component="form" onSubmit={handleSubmit}>
-      <TextField
-        fullWidth
-        label="Nombre del plato"
-        sx={{ my: 1 }}
-        size="small"
-        value={mealName}
-        onChange={(e) => {
-          setMealName(e.target.value)
-        }}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton
-                onClick={() => {
-                  void handleSearchClick()
-                }}
-              >
-                <SearchIcon />
-              </IconButton>
-            </InputAdornment>
-          )
-        }}
-      />
+      <InputSearchField mealName={mealName} setMealName={setMealName} />
       <TextField
         fullWidth
         select
@@ -120,7 +68,7 @@ export const MealForm = ({ mealId, buttonText, currMealName = '', currWeekday = 
           Sin resultados de imagenes
         </Typography>
       ) : (
-        <CustomImageList />
+        <CustomImageList dishImages={dishImages} />
       )}
       <Button fullWidth variant="outlined" sx={{ mb: 3 }} type="submit">
         {buttonText}
