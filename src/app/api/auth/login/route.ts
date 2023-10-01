@@ -14,7 +14,7 @@ export async function POST(request: Request) {
   if (password !== ReqPassword) {
     return NextResponse.json({ error: 'Invalid username or password' }, { status: 401 })
   }
-  const token = await getJwtToken({ role, username, roomId }, JWT_KEY)
+  const token = await getJwtToken({ role, proposerName: username, roomId }, JWT_KEY)
   cookies().set(COOKIE_JWT_NAME, token, {
     sameSite: 'strict',
     path: '/',
