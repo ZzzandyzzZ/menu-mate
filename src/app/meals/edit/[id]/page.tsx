@@ -17,7 +17,7 @@ export default async function EditMealPage({ params }: Props) {
   return (
     <>
       <PageTitle title="Editar Plato" />
-      <MealForm buttonText="Editar" currMealName={meal.mealName} currWeekdate={meal.weekday} />
+      <MealForm buttonText="Editar" currMealName={meal.mealName} currWeekday={meal.weekday} />
     </>
   )
 }
