@@ -10,30 +10,6 @@ import type {
 } from '@/types'
 
 export class MealService extends BaseService<MealRepository> implements IMealService {
-  startMealCreation = async (newMealFormData: NewMealFormData) => {
-    const roomId = this.store.getState().roomId
-    const proposerName = this.store.getState().proposerName
-    if (roomId == null || proposerName == null) throw Error('Invalid session, login')
-    const { mealName, weekday, imageUrl } = newMealFormData
-    const { weekStartStr, weekdayStr } = getWeedayStringData(weekday)
-    const newMeal: NewMeal = {
-      mealName,
-      imageUrl,
-      roomId,
-      accepted: false,
-      proposerName,
-      weekday: weekdayStr,
-      weekStart: weekStartStr
-    }
-
-    await this.handleErrorsAsync(async () => {
-      const meal = await this.repository.create(newMeal)
-      this.store.setState(() => ({
-        currMealId: meal.id
-      }))
-    })
-  }
-
   createMeal = async (newMealFormData: NewMealFormData) => {
     const { mealName, weekday, imageUrl } = newMealFormData
     const { weekStartStr, weekdayStr } = getWeedayStringData(weekday)
@@ -49,20 +25,6 @@ export class MealService extends BaseService<MealRepository> implements IMealSer
       weekStart: weekStartStr
     }
     return await this.repository.create(newMeal)
-  }
-
-  startMealUpdate = async (edditableMeal: EdditableMeal) => {
-    await this.handleErrorsAsync(async () => {
-      const { weekday } = edditableMeal
-      if (weekday != null && weekday !== '') {
-        const { weekStartStr, weekdayStr } = getWeedayStringData(weekday)
-        edditableMeal = { ...edditableMeal, weekStartStr, weekdayStr }
-      }
-      const currMeal = await this.repository.update(edditableMeal)
-      this.store.setState(() => ({
-        currMealId: currMeal.id
-      }))
-    })
   }
 
   updateMeal = async (edditableMeal: EdditableMeal) => {
