@@ -1,5 +1,6 @@
 export * from './auth'
-export * from './meal'
 export * from './enums'
+export * from './image-search'
+export * from './meal'
 export * from './service.d'
 export * from './store.d'
