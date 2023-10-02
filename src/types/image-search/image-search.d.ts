@@ -1,4 +1,4 @@
 export interface ImgMealData {
-  img: string
+  imgSrc: string
   title: string
 }
