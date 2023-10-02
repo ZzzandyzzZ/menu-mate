@@ -1,5 +1,6 @@
 'use client'
 
+import { imgSearchService } from '@/dependencies'
 import SearchIcon from '@mui/icons-material/Search'
 import { IconButton, InputAdornment, TextField } from '@mui/material'
 
@@ -9,13 +10,9 @@ interface Props {
 }
 
 export const InputSearchField = ({ mealName, setMealName }: Props) => {
+  const { getByQuery } = imgSearchService
   const handleSearchClick = async (): Promise<void> => {
-    try {
-      // const images = await fetchSerpapiImages(dishName)
-      // setDishImages(images)
-    } catch (error) {
-      console.error(error)
-    }
+    void getByQuery(mealName)
   }
   return (
     <TextField
