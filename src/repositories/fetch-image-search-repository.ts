@@ -4,7 +4,7 @@ import type { ImageSearchRepository, ImgMealData, SerpApiData } from '@/types'
 export class FetchImageSearchRepository implements ImageSearchRepository {
   mapSerpApiData = (data: SerpApiData): ImgMealData[] => {
     return data.images_results.map((result) => ({
-      img: result.original,
+      imgSrc: result.original,
       title: result.title
     }))
   }
@@ -21,7 +21,7 @@ export class FetchImageSearchRepository implements ImageSearchRepository {
   // }
 }
 
-const fakeData: SerpApiData = {
+export const fakeData: SerpApiData = {
   search_metadata: {
     id: '64e7c4f0f26ac60f8b85f85a',
     status: 'Success',
