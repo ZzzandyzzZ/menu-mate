@@ -7,7 +7,8 @@ const initialState = {
   meals: [],
   roomId: null,
   proposerName: null,
-  imageSearchResults: []
+  imageSearchResults: [],
+  selectedSrc: ''
 }
 
 export const useStore = create<StoreState>((set) => {

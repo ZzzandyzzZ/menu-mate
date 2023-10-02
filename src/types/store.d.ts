@@ -8,6 +8,7 @@ export interface StoreState {
   roomId: string | null
   proposerName: ProposerNames | null
   imageSearchResults: ImgMealData[]
+  selectedSrc: string
   clear: () => void
 }
 
