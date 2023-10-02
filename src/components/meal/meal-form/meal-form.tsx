@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Button, MenuItem, TextField, Typography } from '@mui/material'
+import { Box, Button, MenuItem, TextField } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import { useState, type FormEvent } from 'react'
 
@@ -19,10 +19,6 @@ interface Props {
 }
 
 const imageUrl = 'https://www.deliciosi.com/images/2200/2235/arroz-verde-peruano-665.webp'
-
-const dishImages = [
-  { img: 'https://www.deliciosi.com/images/2200/2235/arroz-verde-peruano-665.webp', title: 'test' }
-]
 
 export const MealForm = ({ mealId, buttonText, currMealName = '', currWeekday = '' }: Props) => {
   const [mealName, setMealName] = useState(currMealName)
@@ -63,13 +59,7 @@ export const MealForm = ({ mealId, buttonText, currMealName = '', currWeekday = 
           )
         })}
       </TextField>
-      {dishImages.length === 0 ? (
-        <Typography textAlign="center" py={3}>
-          Sin resultados de imagenes
-        </Typography>
-      ) : (
-        <CustomImageList dishImages={dishImages} />
-      )}
+      <CustomImageList />
       <Button fullWidth variant="outlined" sx={{ mb: 3 }} type="submit">
         {buttonText}
       </Button>
