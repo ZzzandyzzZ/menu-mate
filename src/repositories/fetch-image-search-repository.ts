@@ -14,11 +14,12 @@ export class FetchImageSearchRepository implements ImageSearchRepository {
     if (body.error != null) throw Error(body.error)
     return this.mapSerpApiData(body.data)
   }
-  // getByQuery = async (query: string) => {
-  //   console.log('fake fetch with query', query)
-  //   const data = fakeData
-  //   return this.mapSerpApiData(data)
-  // }
+
+  getByQuery_ = async (query: string) => {
+    console.log('fake fetch with query', query)
+    const data = fakeData
+    return this.mapSerpApiData(data)
+  }
 }
 
 export const fakeData: SerpApiData = {
