@@ -5,11 +5,12 @@ import { useRouter } from 'next/navigation'
 import { useState, type FormEvent } from 'react'
 
 import { mealService } from '@/dependencies'
+import { useStore } from '@/store'
+import { CustomImageList } from './custom-image-list'
+import { InputSearchField } from './input-search-field'
 
 import { WeekDays } from '@/types'
 import type { UUID } from 'crypto'
-import { CustomImageList } from './custom-image-list'
-import { InputSearchField } from './input-search-field'
 
 interface Props {
   mealId?: UUID
@@ -18,9 +19,8 @@ interface Props {
   currWeekday?: WeekDays | ''
 }
 
-const imageUrl = 'https://www.deliciosi.com/images/2200/2235/arroz-verde-peruano-665.webp'
-
 export const MealForm = ({ mealId, buttonText, currMealName = '', currWeekday = '' }: Props) => {
+  const selectedSrc = useStore((state) => state.selectedSrc)
   const [mealName, setMealName] = useState(currMealName)
   const [weekday, setWeekday] = useState(currWeekday)
   const { createMeal, updateMeal } = mealService
@@ -29,7 +29,7 @@ export const MealForm = ({ mealId, buttonText, currMealName = '', currWeekday = 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const handler = currMealName !== '' ? updateMeal : createMeal
-    handler({ imageUrl, mealName, weekday, id: mealId })
+    handler({ imageUrl: selectedSrc, mealName, weekday, id: mealId })
       .then(() => {
         router.push('/meals/proposals')
         router.refresh()
