@@ -24,6 +24,8 @@ export class NotionMealRepository implements MealRepository {
       weekday
     }: NotionProperties = properties
     const weekdayDate = new Date(weekday.date.start)
+    console.log({ weekdayDate })
+    console.log(weekdayDate.getDay())
     const meal: Meal = {
       id,
       accepted: accepted.checkbox,

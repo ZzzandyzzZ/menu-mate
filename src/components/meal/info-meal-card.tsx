@@ -38,7 +38,8 @@ export function InfoMealCard({ weekday, imageUrl, proposerName, mealName, accept
           height: '75%',
           position: 'absolute',
           zIndex: 0,
-          backgroundColor: '#F6F4EB'
+          backgroundColor: '#F6F4EB',
+          borderRadius: 4
         }}
       />
     </Box>

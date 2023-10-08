@@ -1,4 +1,5 @@
 'use client'
+
 import MenuIcon from '@mui/icons-material/Menu'
 import {
   AppBar,
@@ -66,11 +67,7 @@ export const DrawerAppBar = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: { xs: 'block' } }}>
             {mainTitle}
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
