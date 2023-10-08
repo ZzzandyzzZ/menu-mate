@@ -1,11 +1,11 @@
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
+import { CREDENTIALS, JWT_KEY } from '@/config'
 import { COOKIE_JWT_NAME } from '@/constants'
 import { getJwtToken } from '@/lib'
 
 export async function POST(request: Request) {
-  const { JWT_KEY, CREDENTIALS } = process.env
   if (JWT_KEY == null || CREDENTIALS == null) {
     return NextResponse.json({ error: 'Env vars not defined' }, { status: 500 })
   }

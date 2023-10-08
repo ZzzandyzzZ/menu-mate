@@ -1,11 +1,11 @@
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
+import { JWT_KEY } from '@/config'
 import { COOKIE_JWT_NAME } from '@/constants'
 import { validateJwtToken } from '@/lib'
 
 export async function GET() {
-  const JWT_KEY = process.env.JWT_KEY
   const jwtToken = cookies().get(COOKIE_JWT_NAME)
   if (jwtToken == null) {
     return NextResponse.json({ error: 'Not logged in' }, { status: 401 })

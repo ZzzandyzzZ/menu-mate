@@ -1,7 +1,9 @@
 'use server'
 
+import { SERPAPI_KEY } from '@/config'
+
 export const FetchSerapiImages = async (query: string) => {
-  if (process.env.SERPAPI_KEY == null) {
+  if (SERPAPI_KEY == null) {
     throw Error('SERPAPI_KEY not defined')
   }
   const params = new URLSearchParams({
@@ -12,7 +14,7 @@ export const FetchSerapiImages = async (query: string) => {
     hl: 'es',
     device: 'mobile',
     output: 'json',
-    api_key: process.env.SERPAPI_KEY
+    api_key: SERPAPI_KEY
   })
   try {
     const response = await fetch(`https://serpapi.com/search.json?${params.toString()}`)
