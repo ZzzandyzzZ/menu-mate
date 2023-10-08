@@ -5,7 +5,8 @@ import type {
 import type { EdditableMeal, Meal, NewMealFormData } from '.'
 
 export interface MealService {
-  getMealById: (mealId: string) => Promise<Meal | null>
+  getMealById: (mealId: UUID) => Promise<Meal | null>
+  deleteMealById: (mealId: UUID) => Promise<UpdatePageResponse>
   getMeals: () => Promise<Meal[]>
   updateMeal: (edditableMeal: EdditableMeal) => Promise<UpdatePageResponse>
   createMeal: (newMealFormData: NewMealFormData) => Promise<CreatePageResponse>

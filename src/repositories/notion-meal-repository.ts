@@ -1,4 +1,5 @@
 import { fetchMealesFromNotionDB, postMealToNotionDB, updateMealInNotionDB } from '@/actions/notion'
+import { deleteMealInNotionDB } from '@/actions/notion/delete-meal-in-notionDB'
 import { getWeekDayFromNumber } from '@/lib'
 
 import type {
@@ -48,9 +49,13 @@ export class NotionMealRepository implements MealRepository {
     return await updateMealInNotionDB(edditableMeal)
   }
 
-  getById = async (mealId: string) => {
+  getById = async (mealId: UUID) => {
     const results = await fetchMealesFromNotionDB()
     const page = results.find((res) => res.id === mealId)
     return page == null ? null : this.mapNotionPageToMeal(page)
+  }
+
+  delete = async (mealId: UUID) => {
+    return await deleteMealInNotionDB(mealId)
   }
 }

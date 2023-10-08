@@ -8,6 +8,7 @@ import type {
   NewMeal,
   NewMealFormData
 } from '@/types'
+import type { UUID } from 'crypto'
 
 export class MealService extends BaseService<MealRepository> implements IMealService {
   createMeal = async (newMealFormData: NewMealFormData) => {
@@ -36,7 +37,11 @@ export class MealService extends BaseService<MealRepository> implements IMealSer
     return await this.repository.getAll()
   }
 
-  getMealById = async (mealId: string) => {
+  getMealById = async (mealId: UUID) => {
     return await this.repository.getById(mealId)
+  }
+
+  deleteMealById = async (mealId: UUID) => {
+    return await this.repository.delete(mealId)
   }
 }
