@@ -39,8 +39,8 @@ export class NotionMealRepository implements MealRepository {
     return await postMealToNotionDB(newMeal)
   }
 
-  getAll = async (roomId: string) => {
-    const results = await fetchMealesFromNotionDB(roomId)
+  getAll = async () => {
+    const results = await fetchMealesFromNotionDB()
     return results.map(this.mapNotionPageToMeal)
   }
 
@@ -48,8 +48,8 @@ export class NotionMealRepository implements MealRepository {
     return await updateMealInNotionDB(edditableMeal)
   }
 
-  getById = async (mealId: string, roomId: string) => {
-    const results = await fetchMealesFromNotionDB(roomId)
+  getById = async (mealId: string) => {
+    const results = await fetchMealesFromNotionDB()
     const page = results.find((res) => res.id === mealId)
     return page == null ? null : this.mapNotionPageToMeal(page)
   }

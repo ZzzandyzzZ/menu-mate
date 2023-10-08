@@ -15,8 +15,7 @@ export type EdditableMeal = Partial<Omit<Meal, 'proposerName'>> & {
   weekStartStr?: string
 }
 
-interface NewMeal extends Omit<Meal, 'id'> {
-  roomId: string
+interface NewMeal extends Omit<Meal, 'id' | 'proposerName'> {
   weekStart: string
   weekday: string
 }

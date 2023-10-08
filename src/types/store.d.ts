@@ -1,12 +1,10 @@
 import type { UUID } from 'crypto'
 import type { StoreApi, UseBoundStore } from 'zustand'
-import type { ImgMealData, ProposerNames } from '.'
+import type { ImgMealData } from '.'
 
 export interface StoreState {
   meals: Meal[]
   currMealId: UUID | null
-  roomId: string | null
-  proposerName: ProposerNames | null
   imageSearchResults: ImgMealData[]
   selectedSrc: string
   clear: () => void

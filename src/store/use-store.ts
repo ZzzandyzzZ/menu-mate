@@ -5,8 +5,6 @@ import { type StoreState } from '@/types'
 const initialState = {
   currMealId: null,
   meals: [],
-  roomId: null,
-  proposerName: null,
   imageSearchResults: [],
   selectedSrc: ''
 }
