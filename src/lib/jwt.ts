@@ -18,10 +18,7 @@ export const validateJwtToken = async (jwt: string, secret: string) => {
   return await jwtVerify(jwt, encondedSecret)
 }
 
-export const getJwtData = async (jwt: string | undefined, secret: string | undefined) => {
-  if (jwt == null || secret == null) {
-    throw Error('Cannot get data from null jwt token')
-  }
+export const getJwtData = async (jwt: string, secret: string) => {
   try {
     const data = await validateJwtToken(jwt, secret)
     const payload: unknown = data.payload
