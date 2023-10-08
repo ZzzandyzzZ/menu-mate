@@ -1,6 +1,6 @@
 import { BaseService } from './base-service'
 
-import type { AuthService as IAuthService, AuthRepository, ProposerNames } from '@/types'
+import type { AuthRepository, AuthService as IAuthService, ProposerNames } from '@/types'
 
 export class AuthService extends BaseService<AuthRepository> implements IAuthService {
   startLogin = async (roomId: string, proposerName: ProposerNames, password: string) => {
@@ -13,10 +13,6 @@ export class AuthService extends BaseService<AuthRepository> implements IAuthSer
         error: (error as Error).message
       }
     }
-    this.store.setState({
-      roomId,
-      proposerName
-    })
     return { success: true, data: null, error: null }
   }
 
