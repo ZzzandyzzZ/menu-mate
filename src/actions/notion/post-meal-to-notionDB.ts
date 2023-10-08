@@ -1,18 +1,20 @@
 'use server'
-import { getNotionClient } from '.'
 
 import type { NewMeal } from '@/types'
+import { authenticateAndGetNotionClient } from './authenticate-and-get-notion-client'
 
 export const postMealToNotionDB = async ({
   mealName,
   imageUrl,
-  roomId,
   accepted,
   weekday,
-  weekStart,
-  proposerName
+  weekStart
 }: NewMeal) => {
-  const { notion, databaseId } = await getNotionClient()
+  const {
+    jwtData: { roomId, proposerName },
+    notionClient: { databaseId, notion }
+  } = await authenticateAndGetNotionClient()
+
   return await notion.pages.create({
     parent: {
       database_id: databaseId

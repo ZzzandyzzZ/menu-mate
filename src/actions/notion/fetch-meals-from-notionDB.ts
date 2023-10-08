@@ -1,9 +1,12 @@
 'use server'
 
-import { getNotionClient } from '.'
+import { authenticateAndGetNotionClient } from './authenticate-and-get-notion-client'
 
-export const fetchMealesFromNotionDB = async (roomId: string) => {
-  const { notion, databaseId } = await getNotionClient()
+export const fetchMealesFromNotionDB = async () => {
+  const {
+    jwtData: { roomId },
+    notionClient: { databaseId, notion }
+  } = await authenticateAndGetNotionClient()
   const query = {
     database_id: databaseId,
     filter: {
