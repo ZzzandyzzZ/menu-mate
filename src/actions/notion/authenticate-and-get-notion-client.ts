@@ -18,12 +18,15 @@ const getNotionClient = () => {
   }
 }
 
-export const authenticateAndGetNotionClient = async () => {
+export const getAuth = async () => {
   const jwtToken = cookies().get(COOKIE_JWT_NAME)
   if (jwtToken == null) {
     throw Error('Unauthorized')
   }
-  const jwtData = await getJwtData(jwtToken.value, JWT_KEY)
+  return await getJwtData(jwtToken.value, JWT_KEY)
+}
+export const authenticateAndGetNotionClient = async () => {
+  const jwtData = await getAuth()
   const notionClient = getNotionClient()
   return { jwtData, notionClient }
 }
