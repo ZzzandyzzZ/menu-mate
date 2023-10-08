@@ -1,7 +1,7 @@
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone'
 import LockTwoTone from '@mui/icons-material/LockTwoTone'
 
-import { SquareIconButton } from '.'
+import { SquareIconButton } from '@/components'
 
 interface Props {
   isAccepted: boolean

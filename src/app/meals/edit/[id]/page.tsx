@@ -1,9 +1,11 @@
 import { MealForm, PageTitle, SimpleMessage } from '@/components'
 import { mealService } from '@/dependencies'
 
+import type { UUID } from 'crypto'
+
 interface Props {
   params: {
-    id: string
+    id: UUID
   }
   searchParams?: {
     search?: string

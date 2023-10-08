@@ -13,5 +13,7 @@ export interface Auth {
 export interface JwtData {
   proposerName: ProposerNames
   roomId: string
-  role?: string
+  role: Role
 }
+
+export type Role = 'admin' | 'user'
