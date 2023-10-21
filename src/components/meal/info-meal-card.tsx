@@ -1,6 +1,6 @@
 import { Box, CardMedia, Paper } from '@mui/material'
 
-import { MealCardData } from './meal-card-data'
+import { MealCardData } from '.'
 
 import type { Meal } from '@/types'
 

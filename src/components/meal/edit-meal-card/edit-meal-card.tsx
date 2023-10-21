@@ -7,11 +7,11 @@ import { useState } from 'react'
 
 import { mealService } from '@/dependencies'
 import { useSafeService } from '@/hooks'
-import { EditMealButton, MealCardData } from '..'
 
-import { SquareIconButton } from '@/components'
+import { MealCardData, SquareIconButton } from '@/components'
 import type { EdditableMeal, Meal, Role } from '@/types'
 import type { UUID } from 'crypto'
+import { EditMealButton } from './edit-meal-button'
 
 interface Props {
   meal: Meal
