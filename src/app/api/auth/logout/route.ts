@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 
 import { JWT_KEY } from '@/config'
 import { COOKIE_JWT_NAME } from '@/constants'
-import { validateJwtToken } from '@/lib'
+import { hasValidToken } from '@/lib'
 
 export async function GET() {
   const jwtToken = cookies().get(COOKIE_JWT_NAME)
@@ -13,9 +13,8 @@ export async function GET() {
   if (JWT_KEY == null) {
     return NextResponse.json({ error: 'Env vars not defined' }, { status: 500 })
   }
-  try {
-    await validateJwtToken(jwtToken.value, JWT_KEY)
-  } catch (error) {
+  const validToken = await hasValidToken(jwtToken.value, JWT_KEY)
+  if (!validToken) {
     return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
   }
   cookies().delete(COOKIE_JWT_NAME)

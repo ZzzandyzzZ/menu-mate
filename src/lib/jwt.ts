@@ -13,14 +13,19 @@ export const getJwtToken = async (data: JWTPayload, secret: string) => {
   return jwt
 }
 
-export const validateJwtToken = async (jwt: string, secret: string) => {
-  const encondedSecret = new TextEncoder().encode(secret)
-  return await jwtVerify(jwt, encondedSecret)
+export const hasValidToken = async (jwt: string, secret: string) => {
+  try {
+    await jwtVerify(jwt, new TextEncoder().encode(secret))
+  } catch (error) {
+    return false
+  }
+  return true
 }
 
 export const getJwtData = async (jwt: string, secret: string) => {
+  const encondedSecret = new TextEncoder().encode(secret)
   try {
-    const data = await validateJwtToken(jwt, secret)
+    const data = await jwtVerify(jwt, encondedSecret)
     const payload: unknown = data.payload
     return payload as JwtData
   } catch (error) {
