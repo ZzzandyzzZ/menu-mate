@@ -22,7 +22,8 @@ export class NotionMealRepository implements MealRepository {
       proposer_name: proposerName,
       image_url: imageUrl,
       accepted,
-      weekday
+      weekday,
+      week_start: weekStart
     }: NotionProperties = properties
     const weekdayDate = new Date(weekday.date.start)
     const meal: Meal = {
@@ -31,7 +32,8 @@ export class NotionMealRepository implements MealRepository {
       weekday: getWeekDayFromNumber(weekdayDate.getUTCDay()),
       mealName: mealName.title[0].plain_text,
       imageUrl: imageUrl.rich_text[0].plain_text,
-      proposerName: proposerName.select.name
+      proposerName: proposerName.select.name,
+      weekStart: weekStart.date.start
     }
     return meal
   }
