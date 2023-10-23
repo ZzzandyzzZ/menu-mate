@@ -7,9 +7,6 @@ interface Props {
   params: {
     id: UUID
   }
-  searchParams?: {
-    search?: string
-  }
 }
 
 export default async function EditMealPage({ params }: Props) {
