@@ -1,10 +1,12 @@
+import { WeekStart } from '@/types'
 import { WeekDays } from '@/types/enums'
+import { capitalizeFirstLetter } from './string'
 
 export function getMondayDate(date: Date) {
   const tmpDate = date
   const day = tmpDate.getUTCDay()
   const diff = tmpDate.getDate() - day + (day === 0 ? -6 : 1)
-  return new Date(tmpDate.setDate(diff))
+  return formatDate(new Date(tmpDate.setDate(diff)))
 }
 
 export const getDateFromWeeday = (weekday: WeekDays) => {
@@ -61,7 +63,33 @@ export const getNumberFromWeekday = (weekday: WeekDays): number => {
 export const getWeedayStringData = (weekday: WeekDays) => {
   const weekdayDate = getDateFromWeeday(weekday)
   return {
-    weekdayStr: weekdayDate.toLocaleString('sv').split(' ')[0],
-    weekStartStr: getMondayDate(weekdayDate).toLocaleString('sv').split(' ')[0]
+    weekdayStr: formatDate(weekdayDate),
+    weekStartStr: getMondayDate(weekdayDate)
   }
+}
+
+export const formatDate = (date: Date) => {
+  return date.toLocaleString('sv', { timeZone: 'UTC' }).split(' ')[0] as WeekStart
+}
+
+export const groupWeeksByMonth = (weeks: string[]) => {
+  const groupByMonth: Record<string, Set<string>> = {}
+  weeks.forEach((week) => {
+    const monthStr = new Date(week).toLocaleDateString('es-ES', {
+      month: 'long'
+    })
+    const capitalizeMonth = capitalizeFirstLetter(monthStr)
+    if (capitalizeMonth in groupByMonth) {
+      groupByMonth[capitalizeMonth].add(week)
+    } else {
+      groupByMonth[capitalizeMonth] = new Set([week])
+    }
+  })
+  return groupByMonth
+}
+
+export const getNextWeek = (date: string) => {
+  const nextWeek = new Date(date)
+  nextWeek.setUTCDate(nextWeek.getUTCDate() + 7)
+  return formatDate(nextWeek)
 }
