@@ -1,5 +1,8 @@
 'use client'
 
+import Link from 'next/link'
+import { useState } from 'react'
+
 import MenuIcon from '@mui/icons-material/Menu'
 import {
   AppBar,
@@ -15,16 +18,20 @@ import {
   Toolbar,
   Typography
 } from '@mui/material'
-import Link from 'next/link'
-import { useState } from 'react'
+
+import { getMondayDate, getNextWeek } from '@/lib'
 
 const drawerWidth = 240
 const mainTitle = 'Menu Mate'
 const navItems = [
-  { href: '/meals', showText: 'Inicio' },
-  { href: '/meals/proposals', showText: 'Propuestas' },
+  { href: '/meals/proposals', showText: 'Propuestas de la semana' },
+  { href: '/meals', showText: 'Semana actual' },
+  {
+    href: `/meals?week_start=${getNextWeek(getMondayDate(new Date()))}`,
+    showText: 'Semana siguiente'
+  },
+  { href: '/meals/past-weeks', showText: 'Semanas anteriores' },
   { href: '/meals/new', showText: 'Agregar Comida' }
-  //   { href: '/meals/history', showText: 'Historial' }
 ]
 
 export const DrawerAppBar = () => {
