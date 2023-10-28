@@ -15,7 +15,7 @@ export async function middleware({ url, nextUrl, cookies }: NextRequest) {
   if (token != null) {
     validToken = await hasValidToken(token.value, JWT_KEY)
     try {
-      tokenRoomId = await decodeJwt(token.value).roomId
+      tokenRoomId = (await decodeJwt(token.value).roomId) as string
     } catch (error) {}
   }
   if (pathname === '/login') {
