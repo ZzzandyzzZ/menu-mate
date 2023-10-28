@@ -21,17 +21,23 @@ import {
 
 import { getMondayDate, getNextWeek } from '@/lib'
 
-const drawerWidth = 240
+const nextWeekDate = getNextWeek(getMondayDate(new Date()))
+const drawerWidth = 260
 const mainTitle = 'Menu Mate'
 const navItems = [
-  { href: '/meals/proposals', showText: 'Propuestas de la semana' },
-  { href: '/meals', showText: 'Semana actual' },
+  { href: '/meals/proposals', showText: 'Propuestas: Semana actual' },
+  { href: `/meals/proposals?week_start=${nextWeekDate}`, showText: 'Propuestas: Semana siguiente' },
+  { href: '/meals', showText: 'Ver: Semana actual' },
   {
-    href: `/meals?week_start=${getNextWeek(getMondayDate(new Date()))}`,
-    showText: 'Semana siguiente'
+    href: `/meals?week_start=${nextWeekDate}`,
+    showText: 'Ver: Semana siguiente'
   },
-  { href: '/meals/past-weeks', showText: 'Semanas anteriores' },
-  { href: '/meals/new', showText: 'Agregar Comida' }
+  { href: '/meals/past-weeks', showText: 'Ver: Semanas anteriores' },
+  { href: '/meals/new', showText: 'Agregar: Semana actual' },
+  {
+    href: `/meals/new?week_start=${nextWeekDate}`,
+    showText: 'Agregar: Semana siguiente'
+  }
 ]
 
 export const DrawerAppBar = () => {
