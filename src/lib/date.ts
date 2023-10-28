@@ -1,6 +1,7 @@
-import { WeekStart } from '@/types'
 import { WeekDays } from '@/types/enums'
 import { capitalizeFirstLetter } from './string'
+
+import type { WeekStart } from '@/types'
 
 export function getMondayDate(date: Date) {
   const tmpDate = date
