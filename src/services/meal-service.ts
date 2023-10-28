@@ -12,14 +12,14 @@ import type { UUID } from 'crypto'
 
 export class MealService extends BaseService<MealRepository> implements IMealService {
   createMeal = async (newMealFormData: NewMealFormData) => {
-    const { mealName, weekday, imageUrl } = newMealFormData
-    const { weekStartStr, weekdayStr } = getWeedayStringData(weekday)
+    const { mealName, weekday, imageUrl, weekStartStr } = newMealFormData
+    const { weekStartStr: currWeekStartStr, weekdayStr } = getWeedayStringData(weekday)
     const newMeal: NewMeal = {
       mealName,
       imageUrl,
       accepted: false,
       weekday: weekdayStr,
-      weekStart: weekStartStr
+      weekStart: weekStartStr ?? currWeekStartStr
     }
     return await this.repository.create(newMeal)
   }

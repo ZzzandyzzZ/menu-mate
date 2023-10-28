@@ -27,4 +27,5 @@ interface NewMealFormData {
   mealName: string
   weekday: WeekDays
   imageUrl: string
+  weekStartStr?: string
 }

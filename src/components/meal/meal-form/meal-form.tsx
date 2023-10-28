@@ -1,10 +1,11 @@
 'use client'
 
 import { Box, Button, MenuItem, TextField } from '@mui/material'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, type FormEvent } from 'react'
 
 import { mealService } from '@/dependencies'
+import { getMondayDate } from '@/lib'
 import { useStore } from '@/store'
 import { CustomImageList } from './custom-image-list'
 import { InputSearchField } from './input-search-field'
@@ -25,20 +26,27 @@ export const MealForm = ({ mealId, buttonText, currMealName = '', currWeekday = 
   const [weekday, setWeekday] = useState(currWeekday)
   const { createMeal, updateMeal } = mealService
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const weekStartStr = searchParams.get('week_start') ?? getMondayDate(new Date())
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const handler = currMealName !== '' ? updateMeal : createMeal
-    handler({ imageUrl: selectedSrc, mealName, weekday, id: mealId })
-      .then(() => {
-        router.push('/meals/proposals')
-        router.refresh()
-      })
-      .catch(console.log)
+    if (mealId == null) {
+      await createMeal({ imageUrl: selectedSrc, mealName, weekday, weekStartStr })
+    } else {
+      await updateMeal({ imageUrl: selectedSrc, mealName, weekday, id: mealId })
+    }
+    router.push(`/meals/proposals?week_start=${weekStartStr}`)
+    router.refresh()
   }
 
   return (
-    <Box component="form" onSubmit={handleSubmit}>
+    <Box
+      component="form"
+      onSubmit={() => {
+        void handleSubmit
+      }}
+    >
       <InputSearchField mealName={mealName} setMealName={setMealName} />
       <TextField
         fullWidth
