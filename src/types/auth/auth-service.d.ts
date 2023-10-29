@@ -1,10 +1,12 @@
-import type { ProposerNames, ServiceResponse } from '..'
+import type { ProposerNames } from '..'
+
+interface LoginData {
+  roomId: string
+  proposerName: ProposerNames
+  password: string
+}
 
 export interface AuthService {
-  startLogin: (
-    roomId: string,
-    proposerName: ProposerNames,
-    password: string
-  ) => Promise<ServiceResponse<null>>
+  startLogin: (data: LoginData) => Promise<void>
   startLogout: () => Promise<void>
 }
