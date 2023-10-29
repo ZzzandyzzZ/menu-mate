@@ -1,48 +1,46 @@
 'use client'
 
-import { Box, Button, MenuItem, TextField } from '@mui/material'
+import { Box, Button, CircularProgress, MenuItem, TextField } from '@mui/material'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState, type FormEvent } from 'react'
+import { useState } from 'react'
 
 import { authService } from '@/dependencies'
+import { useSafeService } from '@/hooks'
 
-import { ProposerNames, type KeyProposerNames } from '@/types'
+import { LoginData, ProposerNames, type KeyProposerNames } from '@/types'
 import { LoginPasswordField } from './login-password-field'
 
 export const LoginForm = () => {
   const { push } = useRouter()
   const [proposerName, setProposerName] = useState('')
-  const [errorMsg, setErrorMsg] = useState<null | string>(null)
   const [password, setPassword] = useState('')
   const roomId = useSearchParams().get('room_id') as string
   const { startLogin } = authService
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const enumProposer = ProposerNames[proposerName as KeyProposerNames]
-    const { success, error } = await startLogin(roomId, enumProposer, password)
-    if (success) {
+  const enumProposer = ProposerNames[proposerName as KeyProposerNames]
+  const { runner, loading, error } = useSafeService<LoginData, void>({
+    execute: startLogin,
+    data: { roomId, proposerName: enumProposer, password },
+    callback: () => {
       push('/meals')
-    } else {
-      setErrorMsg(error)
     }
-  }
+  })
 
   return (
     <>
       <Box
         component="form"
         onSubmit={(e) => {
-          void handleSubmit(e)
+          e.preventDefault()
+          runner()
         }}
-        sx={{ mt: 1 }}
+        sx={{ mt: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
         <TextField
           defaultValue=""
           label="Nombre de usuario"
           margin="dense"
-          error={errorMsg != null}
-          helperText={errorMsg}
+          error={error != null}
+          helperText={error}
           value={proposerName}
           onChange={(e) => {
             setProposerName(e.target.value)
@@ -58,9 +56,14 @@ export const LoginForm = () => {
           ))}
         </TextField>
         <LoginPasswordField password={password} setPassword={setPassword} />
-        <Button type="submit" fullWidth variant="outlined" sx={{ my: 2 }} color="info">
-          Ingresar
-        </Button>
+
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <Button type="submit" fullWidth variant="outlined" sx={{ my: 2 }} color="info">
+            Ingresar
+          </Button>
+        )}
       </Box>
     </>
   )
