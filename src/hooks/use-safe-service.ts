@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 interface Props<T, R> {
-  execute: (data: T) => Promise<R>
+  execute: (data: T) => Promise<R> | Promise<void>
   data: T
   callback?: () => void
 }
@@ -17,7 +17,8 @@ export function useSafeService<T, R = Record<string, unknown>>({
   const runner = async () => {
     setLoading(true)
     try {
-      setResult(await execute(data))
+      const executionResult = await execute(data)
+      if (executionResult !== undefined) setResult(executionResult)
       callback()
     } catch (error) {
       setError((error as Error).message)

@@ -7,7 +7,8 @@ import { useState } from 'react'
 import { authService } from '@/dependencies'
 import { useSafeService } from '@/hooks'
 
-import { LoginData, ProposerNames, type KeyProposerNames } from '@/types'
+import type { KeyProposerNames, LoginData } from '@/types'
+import { ProposerNames } from '@/types'
 import { LoginPasswordField } from './login-password-field'
 
 export const LoginForm = () => {
@@ -17,7 +18,7 @@ export const LoginForm = () => {
   const roomId = useSearchParams().get('room_id') as string
   const { startLogin } = authService
   const enumProposer = ProposerNames[proposerName as KeyProposerNames]
-  const { runner, loading, error } = useSafeService<LoginData, void>({
+  const { runner, loading, error } = useSafeService<LoginData>({
     execute: startLogin,
     data: { roomId, proposerName: enumProposer, password },
     callback: () => {
@@ -31,7 +32,7 @@ export const LoginForm = () => {
         component="form"
         onSubmit={(e) => {
           e.preventDefault()
-          runner()
+          void runner()
         }}
         sx={{ mt: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
