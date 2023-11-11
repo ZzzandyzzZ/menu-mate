@@ -1,8 +1,11 @@
 'use client'
 
 import { imgSearchService } from '@/dependencies'
+import { useSafeService } from '@/hooks'
+import { useStore } from '@/store'
+import { ImgMealData } from '@/types'
 import SearchIcon from '@mui/icons-material/Search'
-import { IconButton, InputAdornment, TextField } from '@mui/material'
+import { CircularProgress, IconButton, InputAdornment, TextField } from '@mui/material'
 
 interface Props {
   mealName: string
@@ -10,10 +13,22 @@ interface Props {
 }
 
 export const InputSearchField = ({ mealName, setMealName }: Props) => {
-  const { getByQuery } = imgSearchService
-  const handleSearchClick = async (): Promise<void> => {
-    void getByQuery(mealName)
+  const setImageSearchResults = useStore((state) => state.setImageSearchResults)
+
+  const { loading, result, runner } = useSafeService<string, ImgMealData[]>({
+    execute: imgSearchService.getByQuery,
+    data: mealName
+  })
+
+  const handleSearchClick = async () => {
+    await runner()
+    if (result == null) {
+      console.log('Error obteniendo imagenes')
+    } else {
+      setImageSearchResults(result)
+    }
   }
+
   return (
     <TextField
       fullWidth
@@ -27,13 +42,13 @@ export const InputSearchField = ({ mealName, setMealName }: Props) => {
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <IconButton
-              onClick={() => {
-                void handleSearchClick()
-              }}
-            >
-              <SearchIcon />
-            </IconButton>
+            {loading ? (
+              <CircularProgress size={30} />
+            ) : (
+              <IconButton onClick={handleSearchClick}>
+                <SearchIcon />
+              </IconButton>
+            )}
           </InputAdornment>
         )
       }}
