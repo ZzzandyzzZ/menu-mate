@@ -1,4 +1,4 @@
-import { FetchSerapiImages } from '@/actions/serapi/fetch-serapi-images'
+import { fetchSerapiImages } from '@/actions/serapi/fetch-serapi-images'
 import type { ImageSearchRepository, ImgMealData, SerpApiData } from '@/types'
 
 export class FetchImageSearchRepository implements ImageSearchRepository {
@@ -10,9 +10,8 @@ export class FetchImageSearchRepository implements ImageSearchRepository {
   }
 
   getByQuery = async (query: string) => {
-    const body = await FetchSerapiImages(query)
-    if (body.error != null) throw Error(body.error)
-    return this.mapSerpApiData(body.data)
+    const result = await fetchSerapiImages(query)
+    return this.mapSerpApiData(result)
   }
 
   getByQuery_ = async (query: string) => {
