@@ -7,5 +7,6 @@
   "exportall.config.relExclusion": ["/src/components"],
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
-  }
+  },
+  "editor.formatOnSave": true
 }
