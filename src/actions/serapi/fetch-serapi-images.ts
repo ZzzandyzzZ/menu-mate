@@ -2,7 +2,7 @@
 
 import { SERPAPI_KEY } from '@/config'
 
-export const FetchSerapiImages = async (query: string) => {
+export const fetchSerapiImages = async (query: string) => {
   if (SERPAPI_KEY == null) {
     throw Error('SERPAPI_KEY not defined')
   }
@@ -16,13 +16,7 @@ export const FetchSerapiImages = async (query: string) => {
     output: 'json',
     api_key: SERPAPI_KEY
   })
-  try {
-    const response = await fetch(`https://serpapi.com/search.json?${params.toString()}`)
-    return { data: await response.json(), error: null }
-  } catch (error) {
-    return {
-      data: [],
-      error: (error as Error).message
-    }
-  }
+  const response = await fetch(`https://serpapi.com/search.json?${params.toString()}`)
+  const data = await response.json()
+  return data
 }
