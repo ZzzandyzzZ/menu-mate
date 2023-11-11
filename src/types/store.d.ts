@@ -7,7 +7,10 @@ export interface StoreState {
   currMealId: UUID | null
   imageSearchResults: ImgMealData[]
   selectedSrc: string
+  globalError: string
   clear: () => void
+  setGlobalError: (error: string) => void
+  clearGlobalError: () => void
   setImageSearchResults: (data: ImgMealData[]) => void
 }
 

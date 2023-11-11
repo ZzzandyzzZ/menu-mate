@@ -6,7 +6,8 @@ const initialState = {
   currMealId: null,
   meals: [],
   imageSearchResults: [],
-  selectedSrc: ''
+  selectedSrc: '',
+  globalError: ''
 }
 
 export const useStore = create<StoreState>((set) => {
@@ -17,6 +18,12 @@ export const useStore = create<StoreState>((set) => {
     },
     setImageSearchResults: (data: ImgMealData[]) => {
       set({ imageSearchResults: data })
+    },
+    setGlobalError: (globalError: string) => {
+      set({ globalError })
+    },
+    clearGlobalError: () => {
+      set({ globalError: '' })
     }
   }
 })
