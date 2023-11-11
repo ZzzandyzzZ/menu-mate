@@ -11,7 +11,8 @@ import { useStore } from '@/store'
 import { CustomImageList } from './custom-image-list'
 import { InputSearchField } from './input-search-field'
 
-import { EdditableMeal, NewMealFormData, WeekDays } from '@/types'
+import type { EdditableMeal, NewMealFormData } from '@/types'
+import { WeekDays } from '@/types/enums'
 import type { UUID } from 'crypto'
 
 interface Props {
@@ -23,6 +24,7 @@ interface Props {
 
 export const MealForm = ({ mealId, buttonText, currMealName = '', currWeekday = '' }: Props) => {
   const selectedSrc = useStore((state) => state.selectedSrc)
+  const setGlobalError = useStore((state) => state.setGlobalError)
   const [mealName, setMealName] = useState(currMealName)
   const [weekday, setWeekday] = useState(currWeekday)
   const router = useRouter()
@@ -41,6 +43,10 @@ export const MealForm = ({ mealId, buttonText, currMealName = '', currWeekday = 
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (selectedSrc === '') {
+      setGlobalError('Agrega una imagen con el boton de la lupa')
+      return
+    }
     if (mealId == null) {
       await runCreate()
     } else {

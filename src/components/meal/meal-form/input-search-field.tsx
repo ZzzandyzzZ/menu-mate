@@ -14,16 +14,21 @@ interface Props {
 
 export const InputSearchField = ({ mealName, setMealName }: Props) => {
   const setImageSearchResults = useStore((state) => state.setImageSearchResults)
+  const setGlobalError = useStore((state) => state.setGlobalError)
 
-  const { loading, result, runner } = useSafeService<string, ImgMealData[]>({
+  const { loading, result, runner, error } = useSafeService<string, ImgMealData[]>({
     execute: imgSearchService.getByQuery,
     data: mealName
   })
 
   const handleSearchClick = async () => {
+    if (mealName === '') {
+      setGlobalError('Agregar un nombre de plato')
+      return
+    }
     await runner()
     if (result == null) {
-      console.log('Error obteniendo imagenes')
+      setGlobalError('Error obteniendo imagenes: ' + error?.toString())
     } else {
       setImageSearchResults(result)
     }

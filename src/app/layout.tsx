@@ -4,6 +4,7 @@ import Providers from '@/providers'
 
 import type { Metadata } from 'next'
 
+import { ErrorSnackbar } from '@/components'
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             >
               {children}
             </Box>
+            <ErrorSnackbar />
           </Container>
         </Providers>
       </body>
