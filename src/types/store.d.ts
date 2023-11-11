@@ -8,6 +8,7 @@ export interface StoreState {
   imageSearchResults: ImgMealData[]
   selectedSrc: string
   clear: () => void
+  setImageSearchResults: (data: ImgMealData[]) => void
 }
 
 export type StoreInstance = UseBoundStore<StoreApi<StoreState>>

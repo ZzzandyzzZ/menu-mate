@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import { type StoreState } from '@/types'
+import { ImgMealData, type StoreState } from '@/types'
 
 const initialState = {
   currMealId: null,
@@ -14,6 +14,9 @@ export const useStore = create<StoreState>((set) => {
     ...initialState,
     clear: () => {
       set(initialState)
+    },
+    setImageSearchResults: (data: ImgMealData[]) => {
+      set({ imageSearchResults: data })
     }
   }
 })
