@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import { ImgMealData, type StoreState } from '@/types'
+import type { ImgMealData, StoreState } from '@/types'
 
 const initialState = {
   currMealId: null,

@@ -8,8 +8,20 @@ export const ErrorSnackbar = () => {
   const clearGlobalError = useStore((state) => state.clearGlobalError)
 
   return (
-    <Snackbar open={globalError !== ''} autoHideDuration={6000} onClose={() => clearGlobalError()}>
-      <Alert onClose={() => clearGlobalError()} severity="error" sx={{ width: '100%' }}>
+    <Snackbar
+      open={globalError !== ''}
+      autoHideDuration={6000}
+      onClose={() => {
+        clearGlobalError()
+      }}
+    >
+      <Alert
+        onClose={() => {
+          clearGlobalError()
+        }}
+        severity="error"
+        sx={{ width: '100%' }}
+      >
         {globalError}
       </Alert>
     </Snackbar>

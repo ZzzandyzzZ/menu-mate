@@ -1,11 +1,13 @@
 'use client'
 
+import SearchIcon from '@mui/icons-material/Search'
+import { CircularProgress, IconButton, InputAdornment, TextField } from '@mui/material'
+
 import { imgSearchService } from '@/dependencies'
 import { useSafeService } from '@/hooks'
 import { useStore } from '@/store'
-import { ImgMealData } from '@/types'
-import SearchIcon from '@mui/icons-material/Search'
-import { CircularProgress, IconButton, InputAdornment, TextField } from '@mui/material'
+
+import type { ImgMealData } from '@/types'
 
 interface Props {
   mealName: string
@@ -50,7 +52,11 @@ export const InputSearchField = ({ mealName, setMealName }: Props) => {
             {loading ? (
               <CircularProgress size={30} />
             ) : (
-              <IconButton onClick={handleSearchClick}>
+              <IconButton
+                onClick={() => {
+                  void handleSearchClick
+                }}
+              >
                 <SearchIcon />
               </IconButton>
             )}
