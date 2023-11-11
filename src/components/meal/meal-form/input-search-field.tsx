@@ -54,7 +54,7 @@ export const InputSearchField = ({ mealName, setMealName }: Props) => {
             ) : (
               <IconButton
                 onClick={() => {
-                  void handleSearchClick
+                  void handleSearchClick()
                 }}
               >
                 <SearchIcon />
