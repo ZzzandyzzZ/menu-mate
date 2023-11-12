@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import { Stack } from '@mui/material'
 
 import { InfoMealCard, PageSubtitle, PageTitle } from '@/components'
-import { mealService } from '@/dependencies'
+import { getSortedMeals } from '@/helpers'
 import { getMondayDate, getNextWeek } from '@/lib'
 
 interface Props {
@@ -17,15 +17,15 @@ export default async function MealsPage({ searchParams }: Props) {
   if (weekStart == null) {
     return redirect(`/meals?week_start=${getMondayDate(new Date())}`)
   }
-  const meals = await mealService.getMeals()
-  const mealsByWeekStart = meals.filter((meal) => meal.weekStart === weekStart && meal.accepted)
+  const sortedMeals = await getSortedMeals({ weekStart })
+
   return (
     <>
       <PageTitle title="Menu Semanal" />
       <PageSubtitle text={`Fechas: ${weekStart} ⇨ ${getNextWeek(weekStart)}`} />
-      {mealsByWeekStart.length !== 0 ? (
+      {sortedMeals.length !== 0 ? (
         <Stack width="100%" spacing={1} mb={5}>
-          {mealsByWeekStart.map((meal) => (
+          {sortedMeals.map((meal) => (
             <InfoMealCard key={meal.id} {...meal} />
           ))}
         </Stack>
