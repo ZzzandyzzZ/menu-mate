@@ -43,7 +43,7 @@ export const MealForm = ({ mealId, buttonText, currMealName = '', currWeekday = 
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (selectedSrc === '') {
+    if (selectedSrc === '' && mealId == null) {
       setGlobalError('Agrega una imagen con el boton de la lupa')
       return
     }
