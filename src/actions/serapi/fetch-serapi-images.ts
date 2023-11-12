@@ -8,7 +8,7 @@ export const fetchSerapiImages = async (query: string) => {
   }
   const params = new URLSearchParams({
     engine: 'google_images',
-    q: query,
+    q: '"plato" arequipeño' + query,
     location: 'Arequipa, Peru',
     gl: 'pe',
     hl: 'es',
