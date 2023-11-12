@@ -62,7 +62,7 @@ export const MealForm = ({ mealId, buttonText, currMealName = '', currWeekday = 
       onSubmit={(e) => {
         void handleSubmit(e)
       }}
-      sx={{ justifyContent: 'center', display: 'flex', flexDirection: 'column' }}
+      sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}
     >
       <InputSearchField mealName={mealName} setMealName={setMealName} />
       <TextField
