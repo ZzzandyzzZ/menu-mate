@@ -18,7 +18,7 @@ export default async function ProposalsPage({ searchParams }: Props) {
   const { role } = await getAuth()
   const weekStart = searchParams.week_start
   if (weekStart == null) {
-    return redirect(`/meals?week_start=${getMondayDate(new Date())}`)
+    return redirect(`/meals/proposals?week_start=${getMondayDate(new Date())}`)
   }
   const mealsByWeekStart = meals.filter((meal) => meal.weekStart === weekStart)
   return (
