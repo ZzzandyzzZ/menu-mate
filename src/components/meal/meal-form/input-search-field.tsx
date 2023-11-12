@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect } from 'react'
+
 import SearchIcon from '@mui/icons-material/Search'
 import { CircularProgress, IconButton, InputAdornment, TextField } from '@mui/material'
 
@@ -23,17 +25,21 @@ export const InputSearchField = ({ mealName, setMealName }: Props) => {
     data: mealName
   })
 
+  useEffect(() => {
+    if (error != null) {
+      setGlobalError('Error obteniendo imagenes: ' + error?.toString())
+    }
+    if (result != null) {
+      setImageSearchResults(result)
+    }
+  }, [result, error])
+
   const handleSearchClick = async () => {
     if (mealName === '') {
       setGlobalError('Agregar un nombre de plato')
       return
     }
-    await runner()
-    if (result == null) {
-      setGlobalError('Error obteniendo imagenes: ' + error?.toString())
-    } else {
-      setImageSearchResults(result)
-    }
+    void runner()
   }
 
   return (
