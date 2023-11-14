@@ -8,7 +8,7 @@ interface Props {
 
 export async function getSortedMeals({ weekStart }: Props) {
   const meals = await mealService.getMeals()
-  const mealsByWeekStart = meals.filter((meal) => meal.weekStart === weekStart && meal.accepted)
+  const mealsByWeekStart = meals.filter((meal) => meal.weekStart === weekStart)
   const sortedMeals = mealsByWeekStart.sort((a, b) => {
     return getNumberFromWeekday(a.weekday) > getNumberFromWeekday(b.weekday) ? 1 : -1
   })

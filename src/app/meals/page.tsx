@@ -18,14 +18,15 @@ export default async function MealsPage({ searchParams }: Props) {
     return redirect(`/meals?week_start=${getMondayDate(new Date())}`)
   }
   const sortedMeals = await getSortedMeals({ weekStart })
+  const acceptedMeals = sortedMeals.filter((meal) => meal.accepted)
 
   return (
     <>
       <PageTitle title="Menu Semanal" />
       <PageSubtitle text={`Fechas: ${weekStart} ⇨ ${getNextWeek(weekStart)}`} />
-      {sortedMeals.length !== 0 ? (
+      {acceptedMeals.length !== 0 ? (
         <Stack width="100%" spacing={1} mb={5}>
-          {sortedMeals.map((meal) => (
+          {acceptedMeals.map((meal) => (
             <InfoMealCard key={meal.id} {...meal} />
           ))}
         </Stack>
